@@ -24,14 +24,21 @@
 ## exploring that in here.
 
 
+
+## Ideally, you should only need to modify these three lines.
+
 ## Name of Zotero sqlite. For safety, we use a copy
 conZf <- "~/tmp/zotero-cp.sqlite"
+
+## Directory
+setwd("~/Files-to-tablet/")
+
 ## Name of sqlite for Referey. Will be deleted and overwritten
 conRf <- "minimal-Referey.sqlite"
 
 
-## FIXME rm later
-setwd("~/Files-to-tablet/")
+## End of configuration part
+
 
 
 
@@ -44,10 +51,6 @@ library(digest, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 conZ <- dbConnect(SQLite(), conZf)
 ## tablesZ <- dbListTables(conZ)
 
-
-
-
-## collections and collectionItems -> Folders:  and DocumentFolders             easy
 
 
 ######################################################################
@@ -88,7 +91,7 @@ ZtoDocuments <- function(Z = ZfullWideNoAttach) {
 	added =	Z$added,
 	modified =	Z$modified,
 	importer =	NA,
-	note =	NA, ## this would require pasting all Zotero's note
+	note =	NA, ## this would require pasting all Zotero's notes
 	privacy =	"NormalDocument",
 	title =	Z$title,
 	advisor =	NA,
@@ -317,6 +320,8 @@ ZAttach <- left_join(ZAttach, zia, by = "itemID")
 ## htmls for snapshots and some PDFs do not have the name in title
 ZAttach$fileName <- unlist(sapply(ZAttach$path,
                                   function(x) {strsplit(x, "storage:")[[1]][2]}))
+## FIXME: would sep need to be different for Windoze? But this affects Androids.
+## No idea.
 ZAttach$pathLast <- with(ZAttach, paste(directory, fileName, sep = "/"))
 ZAttach$hash <- sapply(ZAttach$pathLast, digest)
 
