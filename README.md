@@ -15,17 +15,16 @@ PDFs (and most of that time I am offline) and I use this in combination
 with some reference management software (Mendeley in the past, Zotero
 now). A few essential features for me are:
 
-	- Being able to read, annotate, and highlight any PDF in my library
-	while offline, **without** having had to pre-download them before
-	(e.g., I do not want to spend 10' minutes before I leave the lab
-	thinking what I might be reading in the train on my way home). This
-	means that any solution that tries to fetch the PDF from a server when
-	you want to open it is not acceptable to me. 
+- Being able to read, annotate, and highlight any PDF in my library while
+offline, **without** having had to pre-download them before (e.g., I do
+not want to spend 10' minutes before I leave the lab thinking what I might
+be reading in the train on my way home). This means that any solution that
+tries to fetch the PDF from a server when you want to open it is not
+acceptable to me.
 
-	- Having the PDFs synced with my computer(s) automagically as soon as
-	I am online again. And, of course, having any annotations I make in
-	the PDFs on my computer(s) show up in my tablets without any manual
-	intervention. 
+- Having the PDFs synced with my computer(s) automagically as soon as I am
+online again. And, of course, having any annotations I make in the PDFs on
+my computer(s) show up in my tablets without any manual intervention.
 
 
 
