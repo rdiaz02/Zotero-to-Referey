@@ -1,6 +1,7 @@
 # Zotero to Referey #
 
-_Convert Zotero db to use Referey in Androids_
+_Use Referey on Androids with your Zotero db. Or export your Zotero db in
+a way that Referey will be able to use_
 
 The `zotero-to-referey.R` code will take a [Zotero](http://www.zotero.org)
 sqlite database (db) and convert it into a database that
