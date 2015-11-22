@@ -3,14 +3,14 @@
 _Convert Zotero db to use Referey in Androids_
 
 The `zotero-to-referey.R` code will take a [Zotero](http://www.zotero.org)
-sqlite database and convert it into a database that
+sqlite database (db) and convert it into a database that
 [Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
-and Adroid application, can handle.
+and Android application, can handle.
 
 
 ## Why ##
 
-I use Android tablets heavily for reading, annotation, and highlighting
+I use Android tablets heavily for reading, annotating, and highlighting
 PDFs (and most of that time I am offline) and I use this in combination
 with some reference management software (Mendeley in the past, Zotero
 now). A few essential features for me are:
@@ -44,22 +44,25 @@ but I only use GNU Linux).
 #### The code ####
 
 I do the conversion using R. I use R instead of, say, Python because it is
-just simpler for me for this task. R basically gets the needed data from
-the Zotero sqlite db, modifies/restructures, and creates a new db.
+just simpler for me for this task. The R script **zotero-to-referey.R**
+gets the needed data from the Zotero sqlite db, modifies/restructures it,
+and creates a new db.
 
 
-You can use the R file **zotero-to-referey.R** directly (you should only
+You can use the R script **zotero-to-referey.R** directly (you should only
 need to modify the first few lines). However, I have a shell script,
-**entr-zoter-referey.sh** that is actually in charge of calling the R
+**entr-zoter-referey.sh**, that is actually in charge of calling the R
 script. This script is called automatically whenever there is a change in
-the Zotero db (see [Running automatically](#running-automatically)). This
-is a bash script and I do not think it will run under Windows.
+the Zotero db (see
+[Running automatically](#running-automatically)). **entr-zoter-referey.sh**
+is a bash script and I do not think it will run under Windows (but it
+should be easy to adapt it).
 
 
 There are other reasons to use **entr-zoter-referey.sh**. It takes care of
-making a temporary copy of the Zotero db to a temporary directory. As
-well, it then copies the resulting output for Referey into two different
-files (for different tablets ---reasons in [Syncing](#syncing)).
+making a temporary copy of the Zotero db to a temporary directory and it
+copies the output for Referey into two different files (for different
+tablets ---reasons in [Syncing](#syncing)).
 
 
 
@@ -68,11 +71,11 @@ files (for different tablets ---reasons in [Syncing](#syncing)).
 
 There are two basic settings you need to configure:
 
-      - The name of the sqlite file
-      - How to deal with paths for the PDFs
+  - The name of the sqlite file
+  - How to deal with paths for the PDFs
 
-Enter the preferences, and set the Database path to have the name of the
-sqlite file.
+Enter the Referey preferences, and set the "Database path" to the path of
+the sqlite file.
 
 For the PDFs you need to specify the "PDF folder path" (i.e., the place
 relative to where all PDFs and their enclosing directories live) and how
@@ -80,7 +83,7 @@ to deal with PDF path levels.
 
 For example, in my case I have the complete Zotero PDF structure residing
 under `/sdcard/Zotero-storage` (that is what I enter in "PDF folder
-path"). And since the file names in the sqlite are given as
+path"). And since the PDF file names in the sqlite db are given as
 `directory/name-of-file` in "Preserve PDF path levels" I have option
 `folder\file.pdf`.  There are other options available (just check the
 preferences help).
@@ -104,13 +107,14 @@ setting up one-way syncs is more trouble than just copying the file.
 ### Running automatically ###
 
 I want to trigger the creation of a new db for Referey whenever there is a
-change in the Zotero db. I use [entr](http://entrproject.org/): I (well,
-`entr`) monitors for changes in `zotero.sqlite` and calls the script when
-there are changes. So as not to forget to run `entr`, I have this line in my
+change in the Zotero db. I use [entr](http://entrproject.org/): `entr`
+monitors for changes in `zotero.sqlite` and calls the script when there
+are changes. So as not to forget to run `entr`, I have this line in my
 `.xsession` file:
 
     ls ~/Zotero-data/zotero.sqlite | entr ~/Proyectos/Zotero-to-Referey/entr-zotero-referey.sh &
 
+(You can use inotify, etc, instead but `entr` is dead simple to use).
 
 ### What this won't do ###
 
@@ -122,35 +126,36 @@ Android. This is OK for me but might not be for others.
 
 ##  Alternatives to using Referey with Zotero, or Zotero and Androids ##
 
-(Before we get into details, the first requirement does not strike me as
-unreasonable, but it seems it is not that common, if we take into account
-the common design of many Zotero Android apps. Regardless, and to be
-explicit, this is my reasoning: my whole PDF collection is about 8 GB,
-which fits easily in tablets even from a few years ago. If you take daily
-one-hour train commutes or if you go on an 8-hour airplane flight or ... ,
-I think it is reasonable to want to have all of your PDFs there without
-any need to pre-decide what to read. I just don't want to have to think
-about "did I download the PDF to the tablet?". That is the nice thing
-about tablets: even if aliens abduct you for a few days, as long as they
-let you can charge your tablet, you can just keep reading :-) ).
+(Before we get into details, the first requirement above does not strike
+me as unreasonable. However, maybe my use case is unusual, or so I'd think
+based upon what is the most common design of many Zotero Android
+apps. Regardless, and to be explicit, this is my reasoning: my whole PDF
+collection is about 8 GB, which fits easily even in tablets from a few
+years ago. If you take daily one-hour train commutes or if you go on an
+8-hour airplane flight or ... , I think it is reasonable to want to have
+all of your PDFs in your tablet without any need to pre-decide what to
+read. I just don't want to have to think about "did I download the PDF to
+the tablet?". That is the nice thing about tablets: even if aliens abduct
+you for a few days, as long as they let you charge your tablet, you can
+just keep reading :-) ).
 
 
 As I said, I recently started using Zotero, coming from Mendeley. When
 using Mendeley, I used Referey in the tablets (see
 [Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html))
 because it makes many things extremely simple and convenient. Basically, I
-take care of syncing the database (db from now on) and the complete
-directory with all the PDFs, and Referey works from there. If you use a
-syncing system that keeps the db in your tablets updated and that syncs
-the PDFs back and forth, the above requirements are automatically
-satisfied.
+take care of syncing the database and the complete directory with all the
+PDFs, and Referey works from there. If you use a syncing system that keeps
+the db in your tablets updated and that syncs the PDFs back and forth, the
+above requirements are automatically satisfied. (And I really like the UI
+of Referey and the many ways of selecting and searching for references).
 
 When I moved to Zotero,
 [I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet). Yes,
 there are some apps listed under
 [Zotero for Mobile](https://www.zotero.org/support/mobile), but none will
 do the above, at least in Android systems. In fact, I have tried all of
-those listed, [Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
+those listed: [Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
 [Zed](http://www.favand.net/zed),
 [Zed Lite](https://play.google.com/store/apps/details?id=net.favand.zedlite),
 [Zojo](https://play.google.com/store/apps/details?id=com.phani.zojo),
@@ -167,20 +172,20 @@ collections or tags (yes, you can search, but this is not very
 convenient). Zotfile often requires too much manual intervention (see my
 [attempts to use Zotfile](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html#sec-6-2)
 ---this might be that I never actually fully understood how to use
-Zotfile, but I surely tried to) and, even if you manage to automate that,
+Zotfile) and, even if you manage to automate that,
 you have the PDFs in the tablet but you loose the rest of the structure
 (tags, collections) from your Zotero db which, again, makes things
 a lot less useful: I do not just want the bare PDFs.
 
 
 Given the above,
-[I tried using BibTeX android applications](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
+[I tried using BibTeX Android applications](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
 This idea has been mentioned in other places
 ([e.g., the comment by smatthie, on 2015-09-15](https://forums.zotero.org/discussion/51234/zotable-a-modern-zotero-client-for-android/?Focus=239548)):
 basically, export the Zotero db as a BibTeX file, using the
 [Zotero BBT extension](https://zotplus.github.io/better-bibtex/) that
 exports Zotero collections as
-[JabRef's groups](http://jabref.sourceforge.net/help/GroupsHelp.php) and
+[JabRef's groups](http://jabref.sourceforge.net/help/GroupsHelp.php), and
 use an Android BibTeX app. There are three Android apps that will deal
 with BibTeX files but this is not a great solution either. Briefly, of the
 available ones,
@@ -189,7 +194,7 @@ cannot show your Zotero collections,
 [RefMaster](https://play.google.com/store/apps/details?id=me.bares.refmaster)
 does not support more than one file per entry and does not support Zotero
 collections, and
-[Erathostenes](https://play.google.com/store/apps/details?id=com.mm.eratos),
+[Erathostenes](https://play.google.com/store/apps/details?id=com.mm.eratos)
 will only show the lower-most level of groups, is extremely slow, and
 often you need to kill and restart it as the app will hang. By extremely
 slow I mean that reloading my library of about 3000 references and about
@@ -200,7 +205,7 @@ in the tablets.
 
 When using Referey, in contrast, I launch Referey and load the complete db
 in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed
-ups of 100x to 200x.
+ups of 100x to 200x. And I keep my complete collection structure.
 
 
 ## Doing the Zotero to Referey with Mendeley itself? ##
@@ -214,8 +219,8 @@ ups of 100x to 200x.
 Lots are possible. For instance:
 
 - Improve speed (it takes about 3 to 4 seconds to run the R script in my
-  laptop). Maybe using Rserver could save on start-up and package loading
-  time.
+  laptop). Maybe using [Rserve](https://rforge.net/Rserve/) could save on
+  start-up and package loading time.
 
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
