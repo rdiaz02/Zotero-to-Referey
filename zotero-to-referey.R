@@ -25,19 +25,36 @@
 
 
 
-## Ideally, you should only need to modify these three lines.
+## This script is often called from another script (e.g.,
+## entr-zotero-referey.sh) that passes appropriate command line arguments
+## with names of input and output files. If you run this from an R session
+## or the shell without passing arguments, these are the defaults I
+## use. Change at will.
 
-## Name of Zotero sqlite. For safety, we use a copy
-conZf <- "~/tmp/zotero-cp.sqlite"
+cat("\n Job started at ", date(), "\n")
 
-## Directory
-setwd("~/Files-to-tablet/")
+ca <- commandArgs(trailingOnly = TRUE)
+if(length(ca) == 2) {
+    c1 <- strsplit(ca[1], "=")[[1]]
+    if(c1[1] != "ZOTTMP")
+        stop("First argument must be ZOTTMP=sometmpfile")
+    conZf <- c1[2]
+    c2 <- strsplit(ca[2], "=")[[1]]
+    if(c2[1] != "REFEREYSQLITE")
+        stop("First argument must be REFEREYSQLITE=somefile")
+    conRf <- c2[2]
+    cat("\n Using files supplied via command line arguments\n")
+} else {
+    ## Ideally, you should only need to modify these three lines.
+    ## Name of Zotero sqlite. For safety, we use a copy
+    conZf <- "~/tmp/zotero-cp.sqlite"
+    ## Directory
+    setwd("~/tmp/")
+    ## Name of sqlite for Referey. Will be deleted and overwritten
+    conRf <- "minimal-Referey.sqlite"
+}
 
-## Name of sqlite for Referey. Will be deleted and overwritten
-conRf <- "minimal-Referey.sqlite"
-
-
-## End of configuration part
+## End of configuration part when not using command line arguments.
 
 
 
@@ -613,3 +630,4 @@ dbListTables(minimalReferey) ## needed to prevent Closing open result set
 dbDisconnect(minimalReferey)
 
 
+cat("\n Job finished at ", date(), "\n")
