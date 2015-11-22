@@ -1,6 +1,50 @@
 # Zotero to Referey #
 
-*Convert Zotero db to use Referey in Androids*
+_Convert Zotero db to use Referey in Androids_
+
+The `zotero-to-referey.R` code will take a [Zotero](http://www.zotero.org)
+sqlite database and convert it into a database that
+[Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
+and Adroid application, can handle.
+
+
+## Why ##
+
+I use Android tablets heavily for reading, annotation, and highlighting
+PDFs (and most of that time I am offline) and I use this in combination
+with some reference management software (Mendeley in the past, Zotero
+now). A few essential features for me are:
+
+	- Being able to read, annotate, and highlight any PDF in my library
+	while offline, **without** having had to pre-download them before
+	(e.g., I do not want to spend 10' minutes before I leave the lab
+	thinking what I might be reading in the train on my way home). This
+	means that any solution that tries to fetch the PDF from a server when
+	you want to open it is not acceptable to me. 
+
+	- Having the PDFs synced with my computer(s) automagically as soon as
+	I am online again. And, of course, having any annotations I make in
+	the PDFs on my computer(s) show up in my tablets without any manual
+	intervention. 
+
+
+
+As I said, I recently started using Zotero, coming from Mendeley. When
+using Mendeley, I used Referey in the tablets (see
+[Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html))
+because it makes many things extremely simple and convenient. Basically, I
+take care of syncing the database (db from now on) and the complete
+directory with all the PDFs, and Referey works from there. If you use a
+syncing system that keeps the db in your tablets updated and that syncs
+the PDFs back and forth, the above requirements are automatically
+satisfied.
+
+When I moved to Zotero, I
+[sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
+
+
+
+
 
 
 
