@@ -52,15 +52,15 @@ and creates a new db.
 
 You can use the R script **zotero-to-referey.R** directly (you should only
 need to modify the first few lines). However, I have a shell script,
-**entr-zoter-referey.sh**, that is actually in charge of calling the R
+**run-zotero-to-referey.sh**, that is actually in charge of calling the R
 script. This script is called automatically whenever there is a change in
 the Zotero db (see
-[Running automatically](#running-automatically)). **entr-zoter-referey.sh**
+[Running automatically](#running-automatically)). **run-zotero-to-referey.sh**
 is a bash script and I do not think it will run under Windows (but it
 should be easy to adapt it).
 
 
-There are other reasons to use **entr-zoter-referey.sh**. It takes care of
+There are other reasons to use **run-zotero-to-referey.sh**. It takes care of
 making a temporary copy of the Zotero db to a temporary directory and it
 copies the output for Referey into two different files (for different
 tablets ---reasons in [Syncing](#syncing)).
@@ -108,14 +108,21 @@ setting up one-way syncs is more trouble than just copying the file.
 ### Running automatically ###
 
 I want to trigger the creation of a new db for Referey whenever there is a
-change in the Zotero db. I use [entr](http://entrproject.org/): `entr`
-monitors for changes in `zotero.sqlite` and calls the script when there
-are changes. So as not to forget to run `entr`, I have this line in my
-`.xsession` file:
+change in the Zotero db. I use
+[inotify-tools](https://github.com/rvoicilas/inotify-tools/wiki) to
+monitor for changes in `zotero.sqlite` and call the script when there are
+changes. So as not to forget it, I have this line in my `.xsession` file:
 
-    ls ~/Zotero-data/zotero.sqlite | entr ~/Proyectos/Zotero-to-Referey/entr-zotero-referey.sh &
+     while inotifywait -e close -e modify ~/Zotero-data/zotero.sqlite; do ~/Proyectos/Zotero-to-Referey/run-zotero-to-referey.sh; done &
 
-(You can use inotify, etc, instead but `entr` is dead simple to use).
+
+
+(You might want to use [entr](http://entrproject.org/), which I like a
+lot, but I was missing some events; it would be triggered at open and
+close of Zotero, but not at intermediate changes with Zotero open, such as
+reorganizing the library, deleting tags, etc).
+
+
 
 ### What this won't do ###
 
