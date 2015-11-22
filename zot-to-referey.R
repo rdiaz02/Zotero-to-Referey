@@ -30,6 +30,11 @@ conZf <- "~/tmp/zotero-cp.sqlite"
 conRf <- "minimal-Referey.sqlite"
 
 
+## FIXME rm later
+setwd("~/Files-to-tablet/")
+
+
+
 library(uuid, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 library(RSQLite, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 library(reshape2, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
@@ -186,6 +191,32 @@ ZtoDocumentUrls <- function(Z = ZfullWideNoAttach) {
     ))
 }
 
+ZtoDocumentFolders <- function(Z = ZColItems) {
+    return(data.frame(
+        documentId = Z$itemID,
+        folderId = Z$collectionID,
+        status = "ObjectUnchanged"))
+}
+
+ZtoFolders <- function(Z = ZCol) {
+    return(data.frame(
+        id = Z$collectionID,
+        uuid = paste0("{",
+                      replicate(nrow(Z), UUIDgenerate()),
+                      "}"),
+        name = Z$collectionName,
+        parentId = Z$parentCollectionID,
+        access = "PrivateAccess",
+        syncPolicy = "SyncFilesInSelectedCollections",
+        downloadFilesPolicy = "false",
+        uploadFilesPolicy = "false",
+        publicUrl = "",
+        description = "",
+        creatorName = "",
+        creatorProfileUrl = "" 
+    ))
+}
+
 fillRemoteDocuments <- function(documentId,
                                 namecon = minimalReferey){
     df <- data.frame(documentId = documentId,
@@ -197,7 +228,22 @@ fillRemoteDocuments <- function(documentId,
                      inTrash = "false"
                      )
   dbWriteTable(namecon, "RemoteDocuments", df,
-                               append = TRUE)  
+               append = TRUE)  
+}
+
+fillRemoteFolders <- function(folderId,
+                              namecon =minimalReferey) {
+    df <- data.frame(folderId = folderId,
+                     remoteUuid = replicate(length(folderId),
+                                            UUIDgenerate()),
+                     remoteId = seq_along(folderId),
+                     parentRemoteId = 0,
+                     groupId = 0,
+                     status = "ObjectUnchanged",
+                     version = -99999999
+                     )
+  dbWriteTable(namecon, "RemoteFolders", df,
+               append = TRUE)  
 }
 ######################################################################
 ######################################################################
@@ -308,6 +354,10 @@ ZAuthors <- left_join(ZAuthors,
                      by = "creatorDataID")
 
 
+ZCol <- dbReadTable(conZ, "collections")[, c(1, 2, 3)]
+ZCol$parentCollectionID[is.na(ZCol$parentCollectionID)] <- -1
+ZColItems <- dbReadTable(conZ, "collectionItems")
+
 
 ######################################################################
 ######################################################################
@@ -397,6 +447,7 @@ createTable('CREATE TABLE "Files" (
 	localUrl	VARCHAR NOT NULL,
 	PRIMARY KEY(hash)
 )')
+## Yes, I use "" so I can use '' at end
 createTable("CREATE TABLE `DocumentFiles` (
 	`documentId`	INTEGER NOT NULL,
 	`hash`	CHAR[40] NOT NULL,
@@ -419,12 +470,12 @@ CREATE TABLE "DocumentContributors" (
 	PRIMARY KEY(id)
 )
 ')
-createTable("CREATE TABLE `DocumentUrls` (
-	`documentId`	INTEGER NOT NULL,
-	`position`	INTEGER NOT NULL,
-	`url`	VARCHAR NOT NULL,
+createTable('CREATE TABLE "DocumentUrls" (
+	documentId	INTEGER NOT NULL,
+	position	INTEGER NOT NULL,
+	url	VARCHAR NOT NULL,
 	PRIMARY KEY(documentId,position)
-)")
+)')
 createTable(
 'CREATE TABLE "Folders" (
 	id	INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -491,44 +542,45 @@ CREATE TABLE "Groups" (
 	iconName	VARCHAR
 )
 ')
-createTable("
-CREATE TABLE `DocumentCanonicalIds` (
-	`documentId`	INTEGER,
-	`canonicalId`	INTEGER NOT NULL,
-	`timestamp`	INTEGER NOT NULL,
+createTable('
+CREATE TABLE "DocumentCanonicalIds" (
+	documentId	INTEGER,
+	canonicalId	INTEGER NOT NULL,
+	timestamp	INTEGER NOT NULL,
 	PRIMARY KEY(documentId)
-)")
-createTable("CREATE TABLE `DocumentKeywords` (
-	`documentId`	INTEGER NOT NULL,
-	`keyword`	VARCHAR NOT NULL,
+)')
+createTable('CREATE TABLE "DocumentKeywords" (
+	documentId	INTEGER NOT NULL,
+	keyword	VARCHAR NOT NULL,
 	PRIMARY KEY(documentId,keyword)
-)")
-createTable("CREATE TABLE `FileNotes` (
-	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`author`	VARCHAR,
-	`uuid`	CHAR[38] NOT NULL UNIQUE,
-	`documentId`	INTEGER NOT NULL,
-	`fileHash`	CHAR[40] NOT NULL,
-	`page`	INTEGER NOT NULL,
-	`x`	FLOAT NOT NULL,
-	`y`	FLOAT NOT NULL,
-	`note`	VARCHAR NOT NULL,
-	`modifiedTime`	VARCHAR NOT NULL,
-	`createdTime`	VARCHAR NOT NULL,
-	`unlinked`	BOOLEAN NOT NULL,
-	`baseNote`	VARCHAR,
-	FOREIGN KEY(`documentId`) REFERENCES Documents ( id )
-)")
+)')
+createTable('CREATE TABLE "FileNotes" (
+	id	INTEGER PRIMARY KEY AUTOINCREMENT,
+	author	VARCHAR,
+	uuid	CHAR[38] NOT NULL UNIQUE,
+	documentId	INTEGER NOT NULL,
+	fileHash	CHAR[40] NOT NULL,
+	page	INTEGER NOT NULL,
+	x	FLOAT NOT NULL,
+	y	FLOAT NOT NULL,
+	note	VARCHAR NOT NULL,
+	modifiedTime	VARCHAR NOT NULL,
+	createdTime	VARCHAR NOT NULL,
+	unlinked	BOOLEAN NOT NULL,
+	baseNote	VARCHAR,
+	FOREIGN KEY(documentId) REFERENCES Documents ( id )
+)')
 
 fillTable("Documents", ZtoDocuments()) 
 fillTable("Files", ZtoFiles()) 
 fillTable("DocumentContributors", ZtoDocumentContributors()) 
-## fillTable("Folders")
-## fillTable("DocumentFolders")
+fillTable("Folders", ZtoFolders())
+fillTable("DocumentFolders", ZtoDocumentFolders())
 fillTable("DocumentTags", ZtoDocumentTags())
 fillTable("DocumentFiles", ZtoDocumentFiles())
 fillTable("DocumentUrls", ZtoDocumentUrls())
 fillRemoteDocuments(ZfullWideNoAttach$itemID)
+fillRemoteFolders(ZCol$collectionID)
 
 dbSendQuery(minimalReferey,'
   CREATE INDEX DocumentCanonicalids_CanonicalIndex ON DocumentCanonicalids(canonicalid)
