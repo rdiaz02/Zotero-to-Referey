@@ -1,7 +1,7 @@
 # Zotero to Referey #
 
 _Use Referey on Androids with your Zotero db. Or export your Zotero db in
-a way that Referey will be able to use_
+a way that Referey will be able to use._
 
 The `zotero-to-referey.R` code will take a [Zotero](http://www.zotero.org)
 sqlite database (db) and convert it into a database that
@@ -17,37 +17,50 @@ with some reference management software (Mendeley in the past, Zotero
 now). A few essential features for me are:
 
 - Being able to read, annotate, and highlight any PDF in my library while
-offline, **without** having had to pre-download them before (e.g., I do
-not want to spend 10' minutes before I leave the lab thinking what I might
-be reading in the train on my way home). This means that any solution that
-tries to fetch the PDF from a server when you want to open it is not
-acceptable to me. 
+**offline**, **without** having had to pre-download them before (e.g., I
+do not want to spend 10' minutes before I leave the lab thinking what I
+might be reading in the train on my way home). This means that any
+solution that tries to fetch the PDF from a server when you want to open
+it is not acceptable to me.
 
-- Having the PDFs synced with my computer(s) automagically as soon as I am
-online again. And, of course, having any annotations I make in the PDFs on
-my computer(s) show up in my tablets without any manual intervention.
+- Having the **PDFs synced with my computer(s) automagically** as soon as
+I am online again. And, of course, having any annotations I make in the
+PDFs on my computer(s) show up in my tablets without any manual
+intervention.
 
-- Being able to order the entries by collection, by tag, and by date (and,
-  ideally, select by combination of tag and collection, and order by date,
-  author, or title in those searches).
+- Being able to ** select entries by collection and/or tag** and **order
+  by date** (and, ideally, order by author, or title, and other
+  combinations).
 
 
 ### What ###
 
-Referey does exactly what I want but it expects Mendeley dbs. What I have
-done is take the Zotero db and, from it, generate a minimal db that
-Referey can deal with.
+Referey does exactly what I want but it was designed for Mendeley
+dbs. What I have done is take the Zotero db and, from it, generate a
+minimal db that Referey can deal with. 
 
 (Does this work with Windows, or Mac or ...? No idea. Most of it should,
 but I only use GNU Linux).
+
+### Why Referey ###
+
+Referey makes many things extremely simple and convenient. The user takes
+care of syncing the database (db) and the complete directory with all the
+PDFs, and Referey works from there. If you use a syncing system that keeps
+the db in your tablets updated and that syncs the PDFs back and forth
+(e.g., see [Syncing](#syncing)), the above requirements are automatically
+satisfied. As a plus, I really like the UI of Referey and the many ways of
+searching for references, selecting intersections of tags, drilling down
+by collection, or by the intersection of collection and tag, sorting by
+several criteria, etc.
 
 
 #### The code ####
 
 I do the conversion using R. I use R instead of, say, Python because it is
-just simpler for me for this task. The R script **zotero-to-referey.R**
-gets the needed data from the Zotero sqlite db, modifies/restructures it,
-and creates a new db.
+just simpler for me. The R script **zotero-to-referey.R** gets the needed
+data from the Zotero sqlite db, modifies/restructures it, and creates a
+new db that Referey understands.
 
 
 You can use the R script **zotero-to-referey.R** directly (you should only
@@ -110,7 +123,7 @@ setting up one-way syncs is more trouble than just copying the file.
 I want to trigger the creation of a new db for Referey whenever there is a
 change in the Zotero db. I use
 [inotify-tools](https://github.com/rvoicilas/inotify-tools/wiki) to
-monitor for changes in `zotero.sqlite` and call the script when there are
+monitor `zotero.sqlite` and call the bash script when there are
 changes. So as not to forget it, I have this line in my `.xsession` file:
 
      while inotifywait -e close -e modify ~/Zotero-data/zotero.sqlite; do ~/Proyectos/Zotero-to-Referey/run-zotero-to-referey.sh; done &
@@ -126,44 +139,37 @@ reorganizing the library, deleting tags, etc).
 
 ### What this won't do ###
 
-In contrast to some of the applications we discuss below, this code does
-not allow you to make modifications of your Zotero db from the
-Android. This is OK for me but might not be for others.
+In contrast to some of the applications we discuss
+[below](#alternative-zotero-and-android-routes), this code does not allow
+you to make modifications of your Zotero db from the Android. This is OK
+for me but might not be for others.
+
+To repeat: the syncing that is two way is the one of PDFs. The db is not
+synced back (so even if you were to make changes to the db in your tablet,
+those would not propagate back to your Zotero db).
+
+Of course, it is possible to use this solution AND also run one of the
+apps we discuss under [Alternative Zotero and Android routes](#alternative-zotero-and-android-routes) that do
+allow you to make changes to your Zotero db. For instance, you could add
+tags or notes to an entry (not a PDF) in your Zotero db because of
+something that you realized while reading the PDF.
 
 
 
-##  Alternatives to using Referey with Zotero, or Zotero and Androids ##
+##  Alternatives ##
 
-(Before we get into details, the first requirement above does not strike
-me as unreasonable. However, maybe my use case is unusual, or so I'd think
-based upon what is the most common design of many Zotero Android
-apps. Regardless, and to be explicit, this is my reasoning: my whole PDF
-collection is about 8 GB, which fits easily even in tablets from a few
-years ago. If you take daily one-hour train commutes or if you go on an
-8-hour airplane flight or ... , I think it is reasonable to want to have
-all of your PDFs in your tablet without any need to pre-decide what to
-read. I just don't want to have to think about "did I download the PDF to
-the tablet?". That is the nice thing about tablets: even if aliens abduct
-you for a few days, as long as they let you charge your tablet, you can
-just keep reading :-) ).
-
+### Alternative Zotero and Android routes ###
 
 As I said, I recently started using Zotero, coming from Mendeley. When
 using Mendeley, I used Referey in the tablets (see
-[Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html))
-because it makes many things extremely simple and convenient. Basically, I
-take care of syncing the database and the complete directory with all the
-PDFs, and Referey works from there. If you use a syncing system that keeps
-the db in your tablets updated and that syncs the PDFs back and forth, the
-above requirements are automatically satisfied. (And I really like the UI
-of Referey and the many ways of selecting and searching for references).
-
-When I moved to Zotero,
+[Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html)). When
+I moved to Zotero,
 [I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet). Yes,
 there are some apps listed under
 [Zotero for Mobile](https://www.zotero.org/support/mobile), but none will
-do the above, at least in Android systems. In fact, I have tried all of
-those listed: [Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
+do what I want ([Why](#why)), at least in Android systems. In fact, I have
+tried all of those listed:
+[Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
 [Zed](http://www.favand.net/zed),
 [Zed Lite](https://play.google.com/store/apps/details?id=net.favand.zedlite),
 [Zojo](https://play.google.com/store/apps/details?id=com.phani.zojo),
@@ -176,14 +182,14 @@ either from Zotero's servers, if you keep them there, of using WebDAV from
 a user-specified server, but then, that is not a workable solution if you
 want offline access to all and any of your PDFs. Zojo seems to have an
 option where you can access your local PDFs, but Zojo does not show
-collections or tags (yes, you can search, but this is not very
+collections or tags (yes, you can search, but I do not find this very
 convenient). Zotfile often requires too much manual intervention (see my
 [attempts to use Zotfile](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html#sec-6-2)
 ---this might be that I never actually fully understood how to use
-Zotfile) and, even if you manage to automate that,
-you have the PDFs in the tablet but you loose the rest of the structure
-(tags, collections) from your Zotero db which, again, makes things
-a lot less useful: I do not just want the bare PDFs.
+Zotfile) and, even if you manage to automate that, you have the PDFs in
+the tablet but you loose the rest of the structure (tags, collections)
+from your Zotero db which, again, makes things a lot less useful: I do not
+just want the bare PDFs.
 
 
 Given the above,
@@ -195,19 +201,19 @@ basically, export the Zotero db as a BibTeX file, using the
 exports Zotero collections as
 [JabRef's groups](http://jabref.sourceforge.net/help/GroupsHelp.php), and
 use an Android BibTeX app. There are three Android apps that will deal
-with BibTeX files but this is not a great solution either. Briefly, of the
+with BibTeX files but I did not like this solution either. Briefly, of the
 available ones,
 [Library](https://play.google.com/store/apps/details?id=com.cgogolin.library)
-cannot show your Zotero collections,
+cannot show your Zotero collections or sort by date,
 [RefMaster](https://play.google.com/store/apps/details?id=me.bares.refmaster)
 does not support more than one file per entry and does not support Zotero
 collections, and
 [Erathostenes](https://play.google.com/store/apps/details?id=com.mm.eratos)
-will only show the lower-most level of groups, is extremely slow, and
-often you need to kill and restart it as the app will hang. By extremely
+will only show the lower-most level of collections, is extremely slow, and
+often I need to kill and restart it as the app will hang. By extremely
 slow I mean that reloading my library of about 3000 references and about
-100 collections/groups on an Asus TF201 can take over 10 minutes to load
-the db and over 40 to deal with the JabRef groups; a Nexus 7 can do it in
+100 collections/groups on an Asus TF201 can take over 40 minutes (10 to load
+the db and over 40 to deal with the JabRef groups); a Nexus 7 can do it in
 between 10 and 20' total. Changes in Zotero, thus, are painful to update
 in the tablets.
 
@@ -216,9 +222,25 @@ in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed
 ups of 100x to 200x. And I keep my complete collection structure.
 
 
-## Doing the Zotero to Referey with Mendeley itself? ##
+### Doing the Zotero to Referey conversion with Mendeley itself? ###
 
-(To be completed)
+I tried that too, but it won't work well. You might think, for instance,
+about configuring Mendeley to have continuous integration of your Zotero
+db, and then launching mendeley whenever there is a change by issuing
+something like `mendeleydesktop --sync-then-quit` (yes, you need to sync;
+running mendeley offline will not trigger a conversion of the Zotero
+db). But this will rarely be a satisfactory experience. Why?
+
+- It is unreliable: I often got crashes (looking at the logs I could not understand what was happening) so that changes in Zotero would actually not propagate.
+- Even when it works, it is very slow (can take over 10 minutes to do the
+  conversion).
+- Mendeley does not import Zotero's collections correctly. This is a
+  [well known, more than six years old problem](http://feedback.mendeley.com/forums/4941-general/suggestions/389900-allow-importing-nested-hierarchical-zotero-collect). (I
+  must be missing something, because it seems trivial to map from Zotero's
+  collections to Mendeley's folders, or at least to do it in a way that
+  will allow Referey to show the right thing).
+- Keeping Mendeley continuously open (i.e., not issuing the  `mendeleydesktop --sync-then-quit`) did not help either (many Zotero changes did not propagate after waiting for up to 10 minutes and Mendeley can use a fair amount of CPU).
+
 
 
 
@@ -227,13 +249,33 @@ ups of 100x to 200x. And I keep my complete collection structure.
 Lots are possible. For instance:
 
 - Improve speed (it takes about 3 to 4 seconds to run the R script in my
-  laptop). Maybe using [Rserve](https://rforge.net/Rserve/) could save on
-  start-up and package loading time.
+laptop). Two main things:
+	- Maybe using [Rserve](https://rforge.net/Rserve/) could save on
+  start-up and package loading time. 
+    - In the code I almost always do `Zotero db -> R data frame -> Referey db` but in several cases we could easily do `Zotero db -> Referey db` directly, skipping the conversion to and from an R data frame (even if the SQLite commands are issues from R).
 
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
 
 
+## Ramblings ##
+
+The first requirement above, in [Why](#why), does not strike me as
+unreasonable. However, maybe my use case is unusual; this is what I gather
+based upon what is the most common design of virtually all Zotero Android
+apps: if PDF access is provided at all, it is by fetching them from the
+web (i.e., requiring being online). The exceptions are Zojo and Zotfile
+(but Zotfile in a sense is a different idea).  I think I must be missing
+something obvious, so here goes my reasoning: my whole PDF collection is
+about 8 GB, which fits easily even in tablets from a few years ago. Now,
+if your daily routine often includes two one-hour train commutes, or if
+you take an 8-hour airplane flight or if you meet friends that can make
+you wait for 50 minutes... , I think it is reasonable to want to have all
+of your PDFs in your tablet without any need to pre-decide what to read. I
+just don't want to have to think about "did I download the PDF to the
+tablet? Am I awake enough to read paper X?". That is the nice thing about
+tablets (compared to paper): even if aliens abduct you for a few days, as
+long as they let you charge your tablet, you can just keep reading :-) ).
 
 
 ## License ##
