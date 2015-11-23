@@ -105,16 +105,44 @@ preferences help).
 
 ### Syncing ###
 
-I use [syncthing](https://syncthing.net/) for syncing. I sync the
-directory where all the PDFs (and their parent directories) live and
-another directory where the dbs live. By syncing the directory of the PDFs
-all of my PDF annotations, highlights, etc, are always shared between all
-machines as soon as they get back online.
+I use [Syncthing](https://syncthing.net/) for syncing. I sync the Zotero
+directory from which all the PDFs hang (remember that the structure is
+often
+`some-directory/eight-capital-letters-and-numbers-directory/the-pdf`; so I
+sync `some-directory`). I also sync the dbs for Referey (**NOT** the
+Zotero dbs). By syncing the directory of the PDFs all of my PDF
+annotations, highlights, etc, are always shared between all machines as
+soon as they get back online.
 
-Referey can make modifications to the dbs and that is the reason why I
-make two copies of the dbs for Referey: in my setup both tablets share a
-directory with the computers, so I do not want there to be conflicts and
+With Zotero,
+[as is clearly explained in the documentation](https://www.zotero.org/support/sync),
+it is generally OK to sync the directory of the PDFs and attachments
+however you see fit, but you should not be syncing the Zotero db yourself
+this way. So I sync the directory of the PDFs between computers and
+tablets using Syncthing. I also sync the dbs for Referey. But the Zotero
+db between computers is synced in the usual Zotero way, and has nothing to
+do with this setup.
+
+Why do I make two copies of the dbs for Referey? Referey can make
+modifications to the dbs, and in my setup both tablets share a directory
+with the computers, so I do not want there to be conflicts or races and
 setting up one-way syncs is more trouble than just copying the file.
+
+
+#### My setup ####
+
+These are the details of my setup, which also explain some paths in the
+bash script. I have a `Zotero-data` directory, where the Zotero dbs live
+(you can configure this at will in Zotero). In this directory, the
+`storage` directory is a symbolic link to the directory
+`Zotero-storage`. Now I can sync `Zotero-storage` using Syncthing (without
+ever touching the Zotero db itself with Syncthing) between the computers
+and the tablets.
+
+I could place the dbs for Referey under `Zotero-storage` but, for reasons
+that don't matter here, I have them in another directory called
+`Files-to-tablet` which is synced between computers and the tablets.
+
 
 
 
