@@ -152,14 +152,14 @@ I want to trigger the creation of a new db for Referey whenever there is a
 change in the Zotero db. I use
 [inotify-tools](https://github.com/rvoicilas/inotify-tools/wiki) to
 monitor `zotero.sqlite` and call the bash script when there are
-changes. So as not to forget it, I have this line in my `.xsession` file:
+changes. So as not to forget to run it, I have this line in my `.xsession` file:
 
      while inotifywait -e close -e modify ~/Zotero-data/zotero.sqlite; do ~/Proyectos/Zotero-to-Referey/run-zotero-to-referey.sh; done &
 
 
 
-(You might want to use [entr](http://entrproject.org/), which I like a
-lot, but I was missing some events; it would be triggered at open and
+(You might want to use [entr](http://entrproject.org/), which is nice and
+simple, but I was missing some events; it would be triggered at open and
 close of Zotero, but not at intermediate changes with Zotero open, such as
 reorganizing the library, deleting tags, etc).
 
@@ -192,11 +192,12 @@ As I said, I recently started using Zotero, coming from Mendeley. When
 using Mendeley, I used Referey in the tablets (see
 [Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html)). When
 I moved to Zotero,
-[I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet). Yes,
-there are some apps listed under
+[I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
+
+There are some apps listed under
 [Zotero for Mobile](https://www.zotero.org/support/mobile), but none will
-do what I want ([Why](#why)), at least in Android systems. In fact, I have
-tried all of those listed:
+do [what I want](#why), at least in Android systems. In fact, I have tried
+all of those listed:
 [Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
 [Zed](http://www.favand.net/zed),
 [Zed Lite](https://play.google.com/store/apps/details?id=net.favand.zedlite),
@@ -208,8 +209,8 @@ so far will not allow you to get PDFs that already live locally in your
 tablet. Yes, you might be able with some of those apps to fetch PDFs,
 either from Zotero's servers, if you keep them there, of using WebDAV from
 a user-specified server, but then, that is not a workable solution if you
-want offline access to all and any of your PDFs. Zojo seems to have an
-option where you can access your local PDFs, but Zojo does not show
+want offline access to all and any of your PDFs. Zojo seems to have a
+[way to access your local PDFs](https://forums.zotero.org/discussion/45461/zojo-an-android-app-for-viewing-citations-stored-at-zotero/), but Zojo does not show
 collections or tags (yes, you can search, but I do not find this very
 convenient). Zotfile often requires too much manual intervention (see my
 [attempts to use Zotfile](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html#sec-6-2)
@@ -217,7 +218,7 @@ convenient). Zotfile often requires too much manual intervention (see my
 Zotfile) and, even if you manage to automate that, you have the PDFs in
 the tablet but you loose the rest of the structure (tags, collections)
 from your Zotero db which, again, makes things a lot less useful: I do not
-just want the bare PDFs.
+want just the bare PDFs.
 
 
 Given the above,
@@ -241,7 +242,7 @@ will only show the lower-most level of collections, is extremely slow, and
 often I need to kill and restart it as the app will hang. By extremely
 slow I mean that reloading my library of about 3000 references and about
 100 collections/groups on an Asus TF201 can take over 40 minutes (10 to load
-the db and over 40 to deal with the JabRef groups); a Nexus 7 can do it in
+the db and over 30 to deal with the JabRef groups); a Nexus 7 can do it in
 between 10 and 20' total. Changes in Zotero, thus, are painful to update
 in the tablets.
 
@@ -278,9 +279,14 @@ Lots are possible. For instance:
 
 - Improve speed (it takes about 3 to 4 seconds to run the R script in my
 laptop). Two main things:
+
 	- Maybe using [Rserve](https://rforge.net/Rserve/) could save on
-  start-up and package loading time. 
-    - In the code I almost always do `Zotero db -> R data frame -> Referey db` but in several cases we could easily do `Zotero db -> Referey db` directly, skipping the conversion to and from an R data frame (even if the SQLite commands are issues from R).
+	start-up and package loading time.
+	
+    - In the code I almost always do `Zotero db -> R data frame -> Referey
+    db` but in several cases we could easily do `Zotero db -> Referey
+    db` directly, skipping the conversion to and from an R data frame
+    (even if the SQLite commands are issues from R).
 
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
@@ -292,18 +298,19 @@ The first requirement above, in [Why](#why), does not strike me as
 unreasonable. However, maybe my use case is unusual; this is what I gather
 based upon what is the most common design of virtually all Zotero Android
 apps: if PDF access is provided at all, it is by fetching them from the
-web (i.e., requiring being online). The exceptions are Zojo and Zotfile
-(but Zotfile in a sense is a different idea).  I think I must be missing
-something obvious, so here goes my reasoning: my whole PDF collection is
-about 8 GB, which fits easily even in tablets from a few years ago. Now,
-if your daily routine often includes two one-hour train commutes, or if
-you take an 8-hour airplane flight or if you meet friends that can make
-you wait for 50 minutes... , I think it is reasonable to want to have all
-of your PDFs in your tablet without any need to pre-decide what to read. I
-just don't want to have to think about "did I download the PDF to the
-tablet? Am I awake enough to read paper X?". That is the nice thing about
-tablets (compared to paper): even if aliens abduct you for a few days, as
-long as they let you charge your tablet, you can just keep reading :-) ).
+web (i.e., requiring being online). The exceptions are Zojo (partially)
+and Zotfile (but Zotfile in a sense is a different idea).  I think I must
+be missing something obvious, so here goes my reasoning: my whole PDF
+collection is about 8 GB, which fits easily even in tablets from a few
+years ago. Now, if your daily routine often includes two one-hour train
+commutes, or if you take an 8-hour airplane flight or if you meet friends
+that can make you wait for 50 minutes... , I think it is reasonable to
+want to have all of your PDFs in your tablet without any need to
+pre-decide what to read. I just don't want to have to think about "did I
+download the PDF to the tablet? Am I awake enough to read paper X?". That
+is the nice thing about tablets (compared to paper): even if aliens abduct
+you for a few days, as long as they let you charge your tablet, you can
+just keep reading :-) ).
 
 
 ## License ##
