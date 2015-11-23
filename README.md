@@ -79,6 +79,31 @@ copies the output for Referey into two different files (for different
 tablets ---reasons in [Syncing](#syncing)).
 
 
+### Using it (user configuration) and requirements ###
+
+You need to have:
+- R
+- The following R packages
+  - digest
+  - uuid
+  - RSQLite
+  - reshape2
+  - dplyr
+
+You will need to specify:
+- If using the bash script:
+    - The path to your zotero.sqlite file (in variable `ZOTSQLITE`)
+    - The temporary directory (variable `TMPDIR`)
+    - The full path and names of the files that will be sent to the
+      tablest (I use two, called `REFEREY1` and `REFEREY2`; modify as
+      needed).
+    - You will probably want to modify the bash script to suit your needs
+      (e.g., the files to be sent to the tablet(s) or where the output
+      from R is left).
+- If using the R script directly, modify `conZf`, `conRf`, and possibly
+change the working directory (`setwd`) in the lines that follow `##     #######   MODIFY THIS     #######`.
+
+
 
 
 ### Configuring Referey ###
@@ -276,6 +301,9 @@ db). But this will rarely be a satisfactory experience. Why?
 ## Improvements ##
 
 Lots are possible. For instance:
+
+- Make using it simpler (there are three or four variables too many that
+  are specific for *my* setup).
 
 - Improve speed (it takes about 3 to 4 seconds to run the R script in my
 laptop). Main things:
