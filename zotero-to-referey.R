@@ -17,19 +17,11 @@
 
 
 
-
-## Since using all the bibtex solutions in the tablets is such a PITA,
-## maybe I can use referey, which does exactly what I want. But I'd need
-## to place the relevant Zotero fields as db that Referey can use. I am
-## exploring that in here.
-
-
-
 ## This script is often called from another script (e.g.,
-## entr-zotero-referey.sh) that passes appropriate command line arguments
-## with names of input and output files. If you run this from an R session
-## or the shell without passing arguments, these are the defaults I
-## use. Change at will.
+## run-zotero-to-referey.sh) that passes appropriate command line
+## arguments with names of input and output files. If you run this from an
+## R session or the shell without passing arguments, you might want to
+## modify some defaults marked as  MODIFY THIS.
 
 cat("\n Job started at ", date(), "\n")
 
@@ -45,16 +37,18 @@ if(length(ca) == 2) {
     conRf <- c2[2]
     cat("\n Using files supplied via command line arguments\n")
 } else {
+    ##     #######   MODIFY THIS     #######
     ## Ideally, you should only need to modify these three lines.
     ## Name of Zotero sqlite. For safety, we use a copy
     conZf <- "~/tmp/zotero-cp.sqlite"
-    ## Directory
+    ## Directory for all temp stuff
     setwd("~/tmp/")
-    ## Name of sqlite for Referey. Will be deleted and overwritten
+    ## Name of sqlite for Referey, left under the temporary
+    ## directory. Will be deleted and overwritten
     conRf <- "minimal-Referey.sqlite"
 }
 
-## End of configuration part when not using command line arguments.
+## End of configuration part 
 
 
 
