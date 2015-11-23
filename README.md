@@ -28,7 +28,7 @@ I am online again. And, of course, having any annotations I make in the
 PDFs on my computer(s) show up in my tablets without any manual
 intervention.
 
-- Being able to ** select entries by collection and/or tag** and **order
+- Being able to **select entries by collection and/or tag** and **order
   by date** (and, ideally, order by author, or title, and other
   combinations).
 
