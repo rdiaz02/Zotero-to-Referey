@@ -278,7 +278,7 @@ db). But this will rarely be a satisfactory experience. Why?
 Lots are possible. For instance:
 
 - Improve speed (it takes about 3 to 4 seconds to run the R script in my
-laptop). Two main things:
+laptop). Main things:
 
 	- Maybe using [Rserve](https://rforge.net/Rserve/) could save on
 	start-up and package loading time.
@@ -287,6 +287,8 @@ laptop). Two main things:
     db` but in several cases we could easily do `Zotero db -> Referey
     db` directly, skipping the conversion to and from an R data frame
     (even if the SQLite commands are issues from R).
+
+	- Any other improvement to the code: I am an sqlite ignorant. 
 
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
