@@ -308,14 +308,7 @@ fullWide$year <- dd[, 1]
 fullWide$month <- dd[, 2]
 fullWide$day <- dd[, 3]
 rm(dd)
-## dbSendQuery(conZ, "DROP TABLE IF EXISTS items1")
-## q4 <- "
-## create table items1 as
-## select * from items
-## inner join itemTypes using (itemTypeID)
-## "
-## str(dbReadTable(conZ, "items1"))
-## dbReadTable(conZ, "items1")[1:10, ]
+
 ZfullWideNoAttach <- fullWide[fullWide$typeName != "attachment", ]
 
 
