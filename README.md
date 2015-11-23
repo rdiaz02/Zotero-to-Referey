@@ -108,7 +108,7 @@ change the working directory (`setwd`) in the lines that follow `##     ####### 
 
 ### Configuring Referey ###
 
-There are two basic settings you need to configure:
+There are two basic settings you need to configure in Referey itself:
 
   - The name of the sqlite file
   - How to deal with paths for the PDFs
@@ -122,10 +122,13 @@ to deal with PDF path levels.
 
 For example, in my case I have the complete Zotero PDF structure residing
 under `/sdcard/Zotero-storage` (that is what I enter in "PDF folder
-path"). And since the PDF file names in the sqlite db are given as
-`directory/name-of-file` in "Preserve PDF path levels" I have option
-`folder\file.pdf`.  There are other options available (just check the
-preferences help).
+path"), so a particular PDF might be located at
+`/sdcard/Zotero/storage/ABCD1234/somefile.pdf`. And since the PDF file
+names in the sqlite db are stored as
+`eight-capital-letters-and-numbers-directory/name-of-file` (so the above
+would be stored in the db as `ABCD1234/somefile.pdf`) in "Preserve PDF
+path levels" I have option `folder\file.pdf`.  There are other options
+available (just check the preferences help).
 
 
 ### Syncing ###
