@@ -288,7 +288,7 @@ laptop). Main things:
     db` directly, skipping the conversion to and from an R data frame
     (even if the SQLite commands are issues from R).
 
-	- Any other improvement to the code: I am an sqlite ignorant. 
+	- Any other improvements to the code: I am an sqlite ignorant. 
 
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
