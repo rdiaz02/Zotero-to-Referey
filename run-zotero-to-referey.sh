@@ -10,6 +10,8 @@ TMPDIR="/home/ramon/tmp"
 
 REFEREY1="/home/ramon/Files-to-tablet/referey-nexus.sqlite"
 REFEREY2="/home/ramon/Files-to-tablet/referey-tf.sqlite"
+REFEREY3="/home/ramon/Files-to-tablet/referey-bq.sqlite"
+
 
 ## I assume the R code, in zotero-to-referey.R, lives in the same place as
 ## this script. I assume you want to leave the output there as well.
@@ -25,3 +27,4 @@ R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero-t
 
 cp $REFEREYSQLITE $REFEREY1
 cp $REFEREYSQLITE $REFEREY2
+cp $REFEREYSQLITE $REFEREY3
