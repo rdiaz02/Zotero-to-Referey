@@ -288,10 +288,11 @@ items1 <- dbGetQuery(conZ, "
           select * from items
           inner join itemTypes using (itemTypeID)
           ")[, c(1, 2, 8, 7, 3, 4)]
+## Nope, do not use milliseconds for Referey.
 items1$added <- as.numeric(difftime(items1$dateAdded, "1970-01-01",
-                                    units = "secs") * 1000)
+                                    units = "secs")) # * 1000
 items1$modified <- as.numeric(difftime(items1$dateModified, "1970-01-01",
-                                       units = "secs") * 1000)
+                                       units = "secs")) # * 1000
 colnames(items1)[4] <- "directory"
 items1 <- items1[, c(1:4, 7, 8)]
 ## ## Some checks 
