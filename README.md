@@ -48,7 +48,7 @@ Referey makes many things extremely simple and convenient. The user takes
 care of syncing the database (db) and the complete directory with all the
 PDFs, and Referey works from there. If you use a syncing system that keeps
 the db in your tablets updated and that syncs the PDFs back and forth
-(e.g., see [Syncing](#syncing)), the above requirements are automatically
+(e.g., see [Syncthing](#syncthing)), the above requirements are automatically
 satisfied. As a plus, I really like the UI of Referey and the many ways of
 searching for references, selecting intersections of tags, drilling down
 by collection, or by the intersection of collection and tag, sorting by
@@ -131,7 +131,7 @@ path levels" I have option `folder\file.pdf`.  There are other options
 available (just check the preferences help).
 
 
-### Syncing ###
+### Syncthing ###
 
 I use [Syncthing](https://syncthing.net/) for syncing. I sync the Zotero
 directory from which all the PDFs hang (remember that the structure is
