@@ -33,7 +33,8 @@ intervention.
   combinations).
 
 
-### What ###
+
+## What ##
 
 Referey does exactly what I want but it was designed for Mendeley
 dbs. What I have done is take the Zotero db and, from it, generate a
@@ -42,7 +43,7 @@ minimal db that Referey can deal with.
 (Does this work with Windows, or Mac or ...? No idea. Most of it should,
 but I only use GNU Linux).
 
-### Why Referey ###
+## Why Referey ##
 
 Referey makes many things extremely simple and convenient. The user takes
 care of syncing the database (db) and the complete directory with all the
@@ -51,8 +52,18 @@ the db in your tablets updated and that syncs the PDFs back and forth
 (e.g., see [Syncthing](#syncthing)), the above requirements are automatically
 satisfied. As a plus, I really like the UI of Referey and the many ways of
 searching for references, selecting intersections of tags, drilling down
-by collection, or by the intersection of collection and tag, sorting by
-several criteria, etc.
+by collection, or searching by the intersection of collection and tag or
+searching within subcollections, sorting by several criteria (including
+reverse order), etc.
+
+### A better way ### Note that the author of Referey has made the code
+available from Github:
+[Referey Github Repo](https://github.com/kleinkm/Referey). Thus, as I
+mention [below](#improvements), a much better approach than using my code
+would be to directly modify the Referey code to allow it to deal with
+Zotero's db.
+
+
 
 
 #### The code ####
@@ -324,6 +335,10 @@ laptop). Main things:
 - Make use of other fields in Zotero I am ignoring for now (I ignore
   notes, for instance).
 
+- And, of course, the definitive improvement would be to directly use
+  Referey on the Zotero db and stop using this code here :smiley:. Since
+  the [code for Referey is available](https://github.com/kleinkm/Referey),
+  it should be possible to modify it to deal with Zotero's db.
 
 ## Ramblings ##
 
