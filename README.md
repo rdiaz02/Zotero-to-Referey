@@ -56,8 +56,9 @@ by collection, or searching by the intersection of collection and tag or
 searching within subcollections, sorting by several criteria (including
 reverse order), etc.
 
-### A better way ### Note that the author of Referey has made the code
-available from Github:
+### A better way ### 
+
+Note that the author of Referey has made the code available from Github:
 [Referey Github Repo](https://github.com/kleinkm/Referey). Thus, as I
 mention [below](#improvements), a much better approach than using my code
 would be to directly modify the Referey code to allow it to deal with
