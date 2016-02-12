@@ -586,8 +586,10 @@ fillTable("Files", ZtoFiles())
 fillTable("DocumentContributors", ZtoDocumentContributors()) 
 fillTable("Folders", ZtoFolders())
 fillTable("DocumentFolders", ZtoDocumentFolders())
-fillTable("DocumentTags", ZtoDocumentTags())
-fillTable("DocumentFiles", ZtoDocumentFiles())
+try(fillTable("DocumentTags", ZtoDocumentTags())) ## Can fail if same document
+                                             ## has same tag repeated, in
+                                             ## successive rows in ZTags
+fillTable("DocumentFiles", ZtoDocumentFiles()) 
 fillTable("DocumentUrls", ZtoDocumentUrls())
 fillRemoteDocuments(ZfullWideNoAttach$itemID)
 fillRemoteFolders(ZCol$collectionID)
@@ -619,3 +621,10 @@ dbDisconnect(minimalReferey)
 
 
 cat("\n Job finished at ", date(), "\n")
+
+
+
+
+
+
+
