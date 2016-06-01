@@ -8,6 +8,14 @@ sqlite database (db) and convert it into a database that
 [Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
 and Android application, can handle.
 
+Before we get going, a **WARNING**: as the license clearly states, this is 
+provided without any warranty. The instructions below change paths, 
+sync files, etc. I am not responsible if trying to follow these instructions
+or using this code destroys your Zotero db, converts the PDFs 
+of your collection of scientific papers into unedible cooking recipes,
+makes your dishwasher eat your fridge, or whatever. And please,
+use common sense (for starters, do a backup).
+
 
 ## Why ##
 
