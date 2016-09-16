@@ -311,7 +311,8 @@ fullWide$day <- dd[, 3]
 rm(dd)
 
 ZfullWideNoAttach <- fullWide[fullWide$typeName != "attachment", ]
-
+MendeleyColumnNames=c("itemID", "typeName", "abstractNote", "added", "modified", "title", "place", "DOI", "edition", "institution", "ISBN", "ISSN", "issue", "language", "numPages", "month", "pages", "publicationTitle", "publisher", "series", "seriesNumber", "shortTitle", "volume", "year", "day")
+ZfullWideNoAttach[,setdiff(MendeleyColumnNames,names(ZfullWideNoAttach))]=NA
 
 ## Attachments
 ZAttach <- fullWide[fullWide$typeName == "attachment",
