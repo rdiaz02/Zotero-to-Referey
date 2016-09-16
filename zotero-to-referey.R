@@ -330,8 +330,8 @@ ZAttach$fileName <- unlist(sapply(ZAttach$path,
 ZAttach$pathLast <- with(ZAttach, paste(directory, fileName, sep = "/"))
 ZAttach$hash <- sapply(ZAttach$pathLast, digest)
 
-
-
+## Closes #7.
+ZAttach <- subset(ZAttach,sourceItemID>0)
 ZTags <- left_join(dbReadTable(conZ, "itemTags"),
                    dbReadTable(conZ, "tags")[, c(1, 2)],
                    by = "tagID")
