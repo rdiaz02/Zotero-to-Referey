@@ -84,7 +84,8 @@ fillTable <- function(table, input, namecon = minimalReferey) {
 
 createTable <- function(text, namecon = minimalReferey) {
     ## saves a few characters of typing
-    dbSendQuery(namecon, text)
+    rs <- dbSendQuery(namecon, text)
+    dbClearResult(rs)
 }
 
 ZtoDocuments <- function(Z = ZfullWideNoAttach) {
@@ -595,28 +596,35 @@ fillTable("DocumentUrls", ZtoDocumentUrls())
 fillRemoteDocuments(ZfullWideNoAttach$itemID)
 fillRemoteFolders(ZCol$collectionID)
 
-dbSendQuery(minimalReferey,'
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX DocumentCanonicalids_CanonicalIndex ON DocumentCanonicalids(canonicalid)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX DocumentContributors_DocumentIndex ON
   DocumentContributors (documentId)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX DocumentFiles_DocumentIndex ON DocumentFiles(documentId)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX DocumentFiles_HashIndex ON DocumentFiles(hash)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX FileNotes_DocumentIndex ON FileNotes(documentId)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX FileNotes_FileHashIndex ON FileNotes(fileHash)
 ')
-dbSendQuery(minimalReferey,'
+dbClearResult(rs)
+rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX RemoteDocuments_DocumentIndex ON RemoteDocuments(documentId)
 ')
+dbClearResult(rs)
 dbListTables(minimalReferey) ## needed to prevent Closing open result set
 dbDisconnect(minimalReferey)
 
