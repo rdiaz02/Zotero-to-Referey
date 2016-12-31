@@ -166,7 +166,7 @@ ZtoDocuments <- function(Z = ZfullWideNoAttach) {
 
 ZtoFiles <- function(Z = ZAttach) {
     return(data.frame(hash = Z$hash,
-                      localURL = Z$pathLast))
+                      localUrl = Z$pathLast))
 }
 
 ZtoDocumentFiles <- function(Z = ZAttach) {
