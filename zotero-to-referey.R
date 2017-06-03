@@ -25,6 +25,9 @@
 
 cat("\n Job started at ", date(), "\n")
 
+library(compiler)
+enableJIT(3)
+
 ca <- commandArgs(trailingOnly = TRUE)
 if(length(ca) == 2) {
     c1 <- strsplit(ca[1], "=")[[1]]
