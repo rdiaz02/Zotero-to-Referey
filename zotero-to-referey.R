@@ -593,7 +593,10 @@ fillTable("Folders", ZtoFolders())
 fillTable("DocumentFolders", ZtoDocumentFolders())
 try(fillTable("DocumentTags", ZtoDocumentTags())) ## Can fail if same document
                                              ## has same tag repeated, in
-                                             ## successive rows in ZTags
+## successive rows in ZTags
+## you will get the message
+## Error in rsqlite_bind_rows(rs@ptr, value) : 
+##   UNIQUE constraint failed: DocumentTags.documentId, DocumentTags.tag
 fillTable("DocumentFiles", ZtoDocumentFiles()) 
 fillTable("DocumentUrls", ZtoDocumentUrls())
 fillRemoteDocuments(ZfullWideNoAttach$itemID)
