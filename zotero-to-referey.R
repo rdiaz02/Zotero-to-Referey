@@ -27,6 +27,7 @@ cat("\n Job started at ", date(), "\n")
 
 library(compiler)
 enableJIT(3)
+library(parallel)
 
 ca <- commandArgs(trailingOnly = TRUE)
 if(length(ca) == 2) {
@@ -275,6 +276,10 @@ SELECT * FROM itemData
 INNER JOIN itemDataValues using (valueID)
 INNER JOIN fields using (fieldID)
 ")[, c(1, 4, 5)]
+## the above gives the warning
+## In rsqlite_fetch(res@ptr, n = n) :
+## Column `value`: mixed type, first seen values of type string, coercing other values of type integer, integer64
+## 
 wideItemData <- dcast(lid, itemID ~ fieldName)
 ## not the fastest
 ## wideItemData <- with(lid, tapply(value, list(itemID, fieldName), identity))
@@ -337,9 +342,30 @@ ZAttach$hash <- sapply(ZAttach$pathLast, digest)
 
 ## Closes #7.
 ZAttach <- subset(ZAttach,sourceItemID>0)
+
+
 ZTags <- left_join(dbReadTable(conZ, "itemTags"),
-                   dbReadTable(conZ, "tags")[, c(1, 2)],
-                   by = "tagID")
+                    dbReadTable(conZ, "tags")[, c(1, 2)],
+                    by = "tagID")
+
+## Duplicated tags within documents can create problems below
+## but this will not work here, since the problem are the names,
+## not the numerical IDs. Too bad, since this is much faster
+## it1 <- dbReadTable(conZ, "itemTags")
+## it1spl <- split(it1, it1$itemID)
+
+## rm_dupl_idtags <- cmpfun(function(z) {
+##     data.frame(itemID = z[1, "itemID"],
+##                tagID = unique(z[, "tagID"]),
+##                stringsAsFactors = FALSE)
+## })
+
+## it1ud <- dplyr::bind_rows(lapply(it1spl, rm_dupl_idtags))
+
+## ZTags <- left_join(it1ud,
+##                    dbReadTable(conZ, "tags")[, c(1, 2)],
+##                    by = "tagID")
+
 ## I think Mendeley has them sorted by number of tags
 count <- data.frame(table(ZTags$itemID))
 count[, 1] <- as.numeric(as.character(count[, 1]))
@@ -591,12 +617,51 @@ fillTable("Files", ZtoFiles())
 fillTable("DocumentContributors", ZtoDocumentContributors()) 
 fillTable("Folders", ZtoFolders())
 fillTable("DocumentFolders", ZtoDocumentFolders())
-try(fillTable("DocumentTags", ZtoDocumentTags())) ## Can fail if same document
+
+## tryzt <- try(fillTable("DocumentTags", ZtoDocumentTags())) ## Can fail if same document
                                              ## has same tag repeated, in
 ## successive rows in ZTags
 ## you will get the message
 ## Error in rsqlite_bind_rows(rs@ptr, value) : 
 ##   UNIQUE constraint failed: DocumentTags.documentId, DocumentTags.tag
+
+## Trying to prevent the problem. Nope, cannot be done before we
+## have the tags. Might want to move this code above?
+
+x <- ZtoDocumentTags()
+x$tag <- as.character(x$tag) ## do not use a factor here as it slows things down
+xspl <- split(x, x$documentId)
+
+rm_dupl_tags <- cmpfun(function(z) {
+    data.frame(documentId = z[1, "documentId"],
+               tag = unique(z[, "tag"]),
+               stringsAsFactors = FALSE)
+})
+
+## slow
+## system.time(xu <- dplyr::bind_rows(lapply(xspl, rm_dupl_tags)))
+## system.time(xu <- dplyr::bind_rows(mclapply(xspl,
+##                                             dplyr::distinct_,
+##                                             mc.cores = detectCores())))
+## this is faster than distinct_
+system.time(xu <- dplyr::bind_rows(mclapply(xspl,
+                                            rm_dupl_tags,
+                                            mc.cores = detectCores())))
+
+## resort by number of tags, as Mendeley has them
+## copy code from above
+count2 <- data.frame(table(xu$documentId))
+count2[, 1] <- as.numeric(as.character(count2[, 1]))
+colnames(count2)[1] <- "documentId"
+ZTags2 <- dplyr::left_join(xu, count2, by = "documentId")
+ZTags2 <- ZTags2[order(ZTags2$Freq, ZTags2$documentId), 1:3][, 1:2]
+rownames(ZTags2) <- NULL
+
+tryzt2 <- try(fillTable("DocumentTags", ZTags2)) 
+
+######
+
+
 fillTable("DocumentFiles", ZtoDocumentFiles()) 
 fillTable("DocumentUrls", ZtoDocumentUrls())
 fillRemoteDocuments(ZfullWideNoAttach$itemID)
