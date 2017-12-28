@@ -311,18 +311,15 @@ ups of 100x to 200x. And I keep my complete collection structure.
 
 ### What about ZotDroid (2017-12-28) ###
 
-ZotDroid was announced in the [Zotero forum]
-(https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android)
+ZotDroid was announced in the [Zotero forum](https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android)
 and is available from the Play Store. It seems a very interesting app and
 it ought to allow syncing changes back. In addition, it is also possible
-to specify a local path for the PDFs (see this comment in the [Zotero forum] 
-(https://forums.zotero.org/discussion/comment/285410/#Comment_285410)).
+to specify a local path for the PDFs (see this comment in the [Zotero forum](https://forums.zotero.org/discussion/comment/285410/#Comment_285410)).
 
 However, I've tried using it with no luck. Basically, it is very slow when
 syncing and loading the collection and then it hangs in any of the usual
 operations (searching, scrolling, jumping to a collection, etc.). I've
-posted these problems in the [Zotero forum]
-(https://forums.zotero.org/discussion/comment/296781/#Comment_296781).
+posted these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/296781/#Comment_296781).
 
 
 So, at least for now, I'll definitely continue using Referey since
