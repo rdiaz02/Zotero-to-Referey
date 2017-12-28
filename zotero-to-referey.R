@@ -44,6 +44,7 @@ if(length(ca) == 2) {
     ##     #######   MODIFY THIS     #######
     ## Ideally, you should only need to modify these three lines.
     ## Name of Zotero sqlite. For safety, we use a copy
+    ## conZf <- "~/tmp/zotero-4-cp.sqlite"
     conZf <- "~/tmp/zotero-cp.sqlite"
     ## Directory for all temp stuff
     setwd("~/tmp/")
@@ -280,6 +281,7 @@ INNER JOIN fields using (fieldID)
 ## In rsqlite_fetch(res@ptr, n = n) :
 ## Column `value`: mixed type, first seen values of type string, coercing other values of type integer, integer64
 ## 
+
 wideItemData <- dcast(lid, itemID ~ fieldName)
 ## not the fastest
 ## wideItemData <- with(lid, tapply(value, list(itemID, fieldName), identity))
@@ -293,10 +295,20 @@ wideItemData <- dcast(lid, itemID ~ fieldName)
 ##           select * from items
 ##           left outer join itemTypes using (itemTypeID)
 ##           ")[, c(1, 2, 8, 7, 3, 4)]
+
+## items1 <- dbGetQuery(conZ, "
+##           select * from items
+##           inner join itemTypes using (itemTypeID)
+##           ")[, c(1, 2, 8, 7, 3, 4)]
+
+## be explicit!!!
 items1 <- dbGetQuery(conZ, "
           select * from items
           inner join itemTypes using (itemTypeID)
-          ")[, c(1, 2, 8, 7, 3, 4)]
+          ")[, c("itemID", "itemTypeID", "typeName",
+                 "key", "dateAdded", "dateModified")]
+
+
 ## Nope, do not use milliseconds for Referey.
 items1$added <- as.numeric(difftime(items1$dateAdded, "1970-01-01",
                                     units = "secs")) # * 1000
@@ -304,6 +316,7 @@ items1$modified <- as.numeric(difftime(items1$dateModified, "1970-01-01",
                                        units = "secs")) # * 1000
 colnames(items1)[4] <- "directory"
 items1 <- items1[, c(1:4, 7, 8)]
+
 ## ## Some checks 
 ## setdiff(wideItemData$itemID, items1$itemID)
 ## ## And these?
@@ -320,8 +333,14 @@ fullWide$day <- dd[, 3]
 rm(dd)
 
 ZfullWideNoAttach <- fullWide[fullWide$typeName != "attachment", ]
-MendeleyColumnNames=c("itemID", "typeName", "abstractNote", "added", "modified", "title", "place", "DOI", "edition", "institution", "ISBN", "ISSN", "issue", "language", "numPages", "month", "pages", "publicationTitle", "publisher", "series", "seriesNumber", "shortTitle", "volume", "year", "day")
-ZfullWideNoAttach[,setdiff(MendeleyColumnNames,names(ZfullWideNoAttach))]=NA
+MendeleyColumnNames <- c("itemID", "typeName", "abstractNote", "added",
+                         "modified", "title", "place", "DOI", "edition",
+                         "institution", "ISBN", "ISSN", "issue", "language",
+                         "numPages", "month", "pages", "publicationTitle",
+                         "publisher", "series", "seriesNumber", "shortTitle",
+                         "volume", "year", "day")
+ZfullWideNoAttach[, setdiff(MendeleyColumnNames,
+                            names(ZfullWideNoAttach))] <- NA
 
 ## Attachments
 ZAttach <- fullWide[fullWide$typeName == "attachment",
@@ -345,7 +364,7 @@ ZAttach <- subset(ZAttach,sourceItemID>0)
 
 
 ZTags <- left_join(dbReadTable(conZ, "itemTags"),
-                    dbReadTable(conZ, "tags")[, c(1, 2)],
+                    dbReadTable(conZ, "tags")[, c(1, 2)], ## these are tagID and name
                     by = "tagID")
 
 ## Duplicated tags within documents can create problems below

@@ -17,6 +17,12 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
+## New: Zotero 5 (2017-12-28)##
+
+I have added a new file, **zotero5-to-referey.R** that should work with
+Zotero 5. Use this instead of **zotero-to-referey.R** in file
+**run-zotero-to-referey.sh**.
+
 ## Why ##
 
 I use Android tablets heavily for reading, annotating, and highlighting

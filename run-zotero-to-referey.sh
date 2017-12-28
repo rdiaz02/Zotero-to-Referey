@@ -23,8 +23,9 @@ REFEREYSQLITE=$TMPDIR/minimal-Referey.sqlite
 
 cp $ZOTSQLITE $ZOTTMP
 
-R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero-to-referey.R &> $BASEDIR/zotero-to-referey.Rout
+R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-to-referey.R &> $BASEDIR/zotero-to-referey.Rout
 
 cp $REFEREYSQLITE $REFEREY1
 ## cp $REFEREYSQLITE $REFEREY2
 cp $REFEREYSQLITE $REFEREY3
+

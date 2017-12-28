@@ -175,7 +175,7 @@ ZtoFiles <- function(Z = ZAttach) {
 
 ZtoDocumentFiles <- function(Z = ZAttach) {
     return(data.frame(
-        documentId = Z$sourceItemID,
+        documentId = Z$parentItemID, ## Z$sourceItemID,
         hash = Z$hash,
         unlinked = "false",
         downloadRestricted = "false",
@@ -362,7 +362,8 @@ ZAttach$hash <- sapply(ZAttach$pathLast, digest)
 
 ## Closes #7.
 ## sourceItemID not available in Zotero 5, it seems
-## ZAttach <- subset(ZAttach, sourceItemID > 0)
+## or is it parentItemID?
+ZAttach <- subset(ZAttach, parentItemID > 0)
 
 
 ZTags <- left_join(dbReadTable(conZ, "itemTags"),
@@ -387,13 +388,14 @@ ZTags <- left_join(dbReadTable(conZ, "itemTags"),
 ##                    dbReadTable(conZ, "tags")[, c(1, 2)],
 ##                    by = "tagID")
 
-## I think Mendeley has them sorted by number of tags
-count <- data.frame(table(ZTags$itemID))
-count[, 1] <- as.numeric(as.character(count[, 1]))
-colnames(count)[1] <- "itemID"
-ZTags <- left_join(ZTags, count, by = "itemID")
-ZTags <- ZTags[order(ZTags$Freq, ZTags$itemID), 1:3]
-rownames(ZTags) <- NULL
+## We do this below after removing replicated tags per document
+## ## I think Mendeley has them sorted by number of tags
+## count <- data.frame(table(ZTags$itemID))
+## count[, 1] <- as.numeric(as.character(count[, 1]))
+## colnames(count)[1] <- "itemID"
+## ZTags <- left_join(ZTags, count, by = "itemID")
+## ZTags <- ZTags[order(ZTags$Freq, ZTags$itemID), 1:3]
+## rownames(ZTags) <- NULL
 
 
 ZAuthors <- left_join(dbReadTable(conZ, "itemCreators"),
