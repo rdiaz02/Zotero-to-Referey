@@ -3,7 +3,7 @@
 _Use Referey on Androids with your Zotero db. Or export your Zotero db in
 a way that Referey will be able to use._
 
-The `zotero-to-referey.R` code will take a [Zotero](http://www.zotero.org)
+The `zotero-to-referey.R` or, if you use Zotero 5, `zotero5-to-referey.R` code will take a [Zotero](http://www.zotero.org)
 sqlite database (db) and convert it into a database that
 [Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
 and Android application, can handle.
@@ -17,7 +17,7 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
-## New: Zotero 5 (2017-12-28)##
+## New: Zotero 5 (2017-12-28) ##
 
 I have added a new file, **zotero5-to-referey.R** that should work with
 Zotero 5. Use this instead of **zotero-to-referey.R** in file
@@ -86,12 +86,13 @@ Zotero's db.
 #### The code ####
 
 I do the conversion using R. I use R instead of, say, Python because it is
-just simpler for me. The R script **zotero-to-referey.R** gets the needed
+just simpler for me. The R script **zotero5-to-referey.R** (or
+**zotero-to-referey.R**) gets the needed
 data from the Zotero sqlite db, modifies/restructures it, and creates a
 new db that Referey understands.
 
 
-You can use the R script **zotero-to-referey.R** directly (you should only
+You can use the R script **zotero5-to-referey.R** directly (you should only
 need to modify the first few lines). However, I have a shell script,
 **run-zotero-to-referey.sh**, that is actually in charge of calling the R
 script. This script is called automatically whenever there is a change in
