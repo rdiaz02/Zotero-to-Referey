@@ -242,6 +242,8 @@ something that you realized while reading the PDF.
 
 ##  Alternatives ##
 
+
+
 ### Alternative Zotero and Android routes ###
 
 As I said, I recently started using Zotero, coming from Mendeley. When
@@ -305,6 +307,27 @@ in the tablets.
 When using Referey, in contrast, I launch Referey and load the complete db
 in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed
 ups of 100x to 200x. And I keep my complete collection structure.
+
+
+### What about ZotDroid (2017-12-28) ###
+
+ZotDroid was announced in the [Zotero forum]
+(https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android)
+and is available from the Play Store. It seems a very interesting app and
+it ought to allow syncing changes back. In addition, it is also possible
+to specify a local path for the PDFs (see this comment in the [Zotero forum] 
+(https://forums.zotero.org/discussion/comment/285410/#Comment_285410)).
+
+However, I've tried using it with no luck. Basically, it is very slow when
+syncing and loading the collection and then it hangs in any of the usual
+operations (searching, scrolling, jumping to a collection, etc.). I've
+posted these problems in the [Zotero forum]
+(https://forums.zotero.org/discussion/comment/296781/#Comment_296781).
+
+
+So, at least for now, I'll definitely continue using Referey since
+ZotDroid is not (yet?) a viable alternative at least for my collection
+and/or hardware.
 
 
 ### Doing the Zotero to Referey conversion with Mendeley itself? ###
