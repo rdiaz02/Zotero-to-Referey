@@ -310,7 +310,7 @@ in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed
 ups of 100x to 200x. And I keep my complete collection structure.
 
 
-### What about ZotDroid (2017-12-28) ###
+### What about ZotDroid (2017-12-28; 2018-03-25) ###
 
 ZotDroid was announced in the [Zotero forum](https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android)
 and is available from the Play Store. It seems a very interesting app and
@@ -322,11 +322,24 @@ syncing and loading the collection and then it hangs in any of the usual
 operations (searching, scrolling, jumping to a collection, etc.). I've
 posted these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/296781/#Comment_296781).
 
+I have tried again with version 1.1.5 (as of 2018-03-25). Still way too slow
+for real usage, and it is not possible to use, in a sensible way,
+the local collection of PDFs. Sorting and searching are also
+very limited compared to Referey. Finally, syncing requires, well,
+remembering to sync your collection (i.e., is not something 
+that happens automagically via a general syncing solution for the tablet).
+
+See my report of these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/304449/#Comment_304449).
+And it continues to be mostly just a read-only option (i.e., does
+not provide anything else beyond my current setup).
 
 So, at least for now, I'll definitely continue using Referey since
 ZotDroid is not (yet?) a viable alternative at least for my collection
 and/or hardware.
 
+(I just stumbled upon another app, ZotEZ, but is seems it is still in beta
+and is also read only; moreover, instructions on how to use a local collection force you to place things
+in specific locations. I see no advantage over my currently working setup).
 
 ### Doing the Zotero to Referey conversion with Mendeley itself? ###
 
