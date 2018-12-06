@@ -11,6 +11,8 @@ TMPDIR="/home/ramon/tmp"
 REFEREY1="/home/ramon/Sync-tablet/Zot-Referey-Nexus/referey-nexus.sqlite"
 ## REFEREY2="/home/ramon/Files-to-tablet/referey-tf.sqlite"
 REFEREY3="/home/ramon/Sync-tablet/Zot-Referey-BQ/referey-bq.sqlite"
+## Create a backup in case minor disasters happen
+REFEREY3_BKP="/home/ramon/Sync-tablet/Zot-Referey-BQ/referey-bq.sqlite_bckp"
 
 
 ## I assume the R code, in zotero-to-referey.R, lives in the same place as
@@ -28,5 +30,6 @@ R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-
 
 cp $REFEREYSQLITE $REFEREY1
 ## cp $REFEREYSQLITE $REFEREY2
+cp $REFEREY3 $REFEREY3_BKP
 cp $REFEREYSQLITE $REFEREY3
 
