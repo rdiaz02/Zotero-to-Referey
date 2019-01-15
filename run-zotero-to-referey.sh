@@ -15,6 +15,10 @@ REFEREY3="/home/ramon/Sync-tablet/Zot-Referey-BQ/referey-bq.sqlite"
 REFEREY3_BKP="/home/ramon/Sync-tablet/Zot-Referey-BQ/referey-bq.sqlite_bckp"
 
 
+REFEREY4="/home/ramon/Sync-tablet/Zot-Referey-S3/referey-s3.sqlite"
+REFEREY4_BKP="/home/ramon/Sync-tablet/Zot-Referey-S3/referey-s3.sqlite_bckp"
+
+
 ## I assume the R code, in zotero-to-referey.R, lives in the same place as
 ## this script. I assume you want to leave the output there as well.
 BASEDIR=$(dirname $BASH_SOURCE)
@@ -32,4 +36,7 @@ cp $REFEREYSQLITE $REFEREY1
 ## cp $REFEREYSQLITE $REFEREY2
 cp $REFEREY3 $REFEREY3_BKP
 cp $REFEREYSQLITE $REFEREY3
+
+cp $REFEREY4 $REFEREY4_BKP
+cp $REFEREYSQLITE $REFEREY4
 
