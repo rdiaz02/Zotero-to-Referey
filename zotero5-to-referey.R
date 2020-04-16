@@ -686,9 +686,29 @@ rm_dupl_tags <- cmpfun(function(z) {
 ##                                             dplyr::distinct_,
 ##                                             mc.cores = detectCores())))
 ## this is faster than distinct_
+
+length(xspl)
+
+
 system.time(xu <- dplyr::bind_rows(mclapply(xspl,
                                             rm_dupl_tags,
                                             mc.cores = detectCores())))
+
+## ## The parallelization can fails with mc. cores > 2 when having
+## the _R_CHECK_LIMIT_CORES_=TRUE environment variable,
+## to mimic BioC's behavior.
+## system.time( {
+##     xsplmc <- mclapply(xspl,
+##                        rm_dupl_tags,
+##                        mc.cores = 2)
+##     xu <- dplyr::bind_rows(xsplmc)
+##     })
+
+## Simple, no parall
+## system.time(xu <- dplyr::bind_rows(lapply(xspl,
+##                                           rm_dupl_tags)))
+
+
 
 ## resort by number of tags, as Mendeley has them
 ## copy code from above
