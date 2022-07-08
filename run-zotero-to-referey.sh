@@ -37,7 +37,7 @@ cp $REFEREY4 $REFEREY4_BKP
 
 
 ## substitute zotero5-to-referey.R bu zotero-to-referey.R if you are using Zotero 4
-R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-to-referey.R &> $BASEDIR/zotero-to-referey.Rout
+R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-to-referey-only-libraryID1.R &> $BASEDIR/zotero-to-referey.Rout
 
 cp $REFEREYSQLITE $REFEREY1
 ## cp $REFEREYSQLITE $REFEREY2
