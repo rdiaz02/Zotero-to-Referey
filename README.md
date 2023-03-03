@@ -159,6 +159,15 @@ would be stored in the db as `ABCD1234/somefile.pdf`) in "Preserve PDF
 path levels" I have option `folder\file.pdf`.  There are other options
 available (just check the preferences help).
 
+#### Configuring Referey in recent (post 2018?) Androids ####
+
+You need access to the "menu burguer" icon (sometimes it looks like a burger
+and sometimes like three vertical dots, I think) to configure Refery and specify: a) the location of the 
+db; b) the location of the PDF directory (folder); c) what levels of the pdf paths to preserve.
+What I do is install a "Menu button" app, so I have access to the "menu" button (often shown as
+the "burger" or as three vertical dots). Then, once in the main menu of Referey, pressing the menu
+button will give you access to the "Preferences", as well as to "Search" and "Help".
+
 
 ### Syncthing ###
 
