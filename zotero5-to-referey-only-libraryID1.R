@@ -366,9 +366,11 @@ ZfullWideNoAttach[, setdiff(MendeleyColumnNames,
 ## Attachments
 ZAttach <- fullWide[fullWide$typeName == "attachment",
                     c("itemID", "directory", "title")]
+
 zia <- dbReadTable(conZ, "itemAttachments")[, c(1, 2, 6)]
+
 if(length(setdiff(zia$itemID, ZAttach$itemID)) > 0)
-    stop("zia > ZAttach")
+    warning("zia > ZAttach") ## failing o.w. with a single png without known parent?
 if(length(setdiff(ZAttach$itemID, zia$itemID)) > 0)
     stop("ZAttach > zia")
 ZAttach <- left_join(ZAttach, zia, by = "itemID")
@@ -785,10 +787,3 @@ dbDisconnect(minimalReferey)
 
 
 cat("\n Job finished at ", date(), "\n")
-
-
-
-
-
-
-

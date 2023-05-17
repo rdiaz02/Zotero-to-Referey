@@ -30,7 +30,7 @@ REFEREYSQLITE=$TMPDIR/minimal-Referey.sqlite
 cp $ZOTSQLITE $ZOTTMP
 
 
-cp $REFEREY3 $REFEREY3_BKP
+## cp $REFEREY3 $REFEREY3_BKP
 cp $REFEREY4 $REFEREY4_BKP
 
 
@@ -39,9 +39,10 @@ cp $REFEREY4 $REFEREY4_BKP
 ## substitute zotero5-to-referey.R bu zotero-to-referey.R if you are using Zotero 4
 R --slave --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-to-referey-only-libraryID1.R &> $BASEDIR/zotero-to-referey.Rout
 
-cp $REFEREYSQLITE $REFEREY1
+## cp $REFEREYSQLITE $REFEREY1
 ## cp $REFEREYSQLITE $REFEREY2
-cp $REFEREYSQLITE $REFEREY3
+## cp $REFEREYSQLITE $REFEREY3
 
 cp $REFEREYSQLITE $REFEREY4
+
 
