@@ -441,6 +441,32 @@ ZAuthors$contribution[ZAuthors$contribution %in% c("author", "contributor")] <-
 ZAuthors$contribution[ZAuthors$contribution %in% c("editor", "seriesEditor")] <-
     "DocumentEditor"
 
+## Presentations have "presenter". Software has "programmer" and there
+## are a few other categories. Make them all "DocumentAuthor" to ensure
+## they are shown. Do not add "reviewedAuthor" as that is the
+## author whose work was reviewed. "bookAuthor" repeats author, so neither
+ZAuthors$contribution[ZAuthors$contribution %in%
+                        c("presenter", "director",
+                          "programmer")] <- "DocumentAuthor"
+
+
+## For books with editor, but no authors, I think I must add the editors
+## as authors, or else they are not shown
+ids_with_authors <-
+  unique(ZAuthors[ZAuthors$contribution == "DocumentAuthor", "itemID"])
+ids_with_editors <-
+  unique(ZAuthors[ZAuthors$contribution == "DocumentEditor", "itemID"])
+ids_only_editors <- setdiff(ids_with_editors, ids_with_authors)
+
+## FIXME: maybe just turn DocumentEditor into DocumentAuthor?
+## That would be simpler, but not as informative. For now, this works
+ZA2 <- ZAuthors[ZAuthors$itemID %in% ids_only_editors,  ]
+ZA2$contribution <- "DocumentAuthor"
+ZAuthors <- rbind(ZAuthors, ZA2)
+ZAuthors <- ZAuthors[order(ZAuthors$itemID), ]
+
+
+
 ## no longer needed with Zotero 5. This info in creators
 ## ZAuthors <- left_join(ZAuthors,
 ##                      dbReadTable(conZ, "creatorData")[, c(1, 2, 3)],
