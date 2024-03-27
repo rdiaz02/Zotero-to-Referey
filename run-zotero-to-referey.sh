@@ -34,7 +34,7 @@ cp "$ZOT_SQLITE" "$ZOTTMP"
 ## since $REFEREY1_DB1 does not exist
 cp "$REFEREY_TABLET" "$REFEREY_TABLET_BCKP"
 
-R --vanilla -s --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero-5-to-referey.R &>> $BASEDIR/zotero-to-referey.Rout
+R --vanilla -s --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero-5-to-referey.R &> $BASEDIR/zotero-to-referey.Rout
 
 cp $REFEREYSQLITE $REFEREY_TABLET
 
