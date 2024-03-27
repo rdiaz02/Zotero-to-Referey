@@ -354,24 +354,31 @@ and/or hardware.
 and is also read only; moreover, instructions on how to use a local collection force you to place things
 in specific locations. I see no advantage over my currently working setup).
 
-### Doing the Zotero to Referey conversion with Mendeley itself? ###
+### What about Zoo for Zotero (2023, 2024) ###
 
-I tried that too, but it won't work well. You might think, for instance,
-about configuring Mendeley to have continuous integration of your Zotero
-db, and then launching mendeley whenever there is a change by issuing
-something like `mendeleydesktop --sync-then-quit` (yes, you need to sync;
-running mendeley offline will not trigger a conversion of the Zotero
-db). But this will rarely be a satisfactory experience. Why?
+Zoo for Zotero would do all I need it to do. But, alas, it is very slow with my library: more than 2 minutes to load it ---these are more than 2 minutes after the initial sync---, whereas Refery takes less than 10 seconds), I get error messages, and I often experience problems opening PDFs (i.e., very rarely can I open the PDF, instead getting the "Zoo for Zotero isn't responding" message) ---this is a known issue https://github.com/mickstar/Zoo-For-Zotero/issues/118. 
 
-- It is unreliable: I often got crashes (looking at the logs I could not understand what was happening) so that changes in Zotero would actually not propagate.
-- Even when it works, it is very slow (can take over 10 minutes to do the
-  conversion).
-- Mendeley does not import Zotero's collections correctly. This is a
-  [well known, more than six years old problem](http://feedback.mendeley.com/forums/4941-general/suggestions/389900-allow-importing-nested-hierarchical-zotero-collect). (I
-  must be missing something, because it seems trivial to map from Zotero's
-  collections to Mendeley's folders, or at least to do it in a way that
-  will allow Referey to show the right thing).
-- Keeping Mendeley continuously open (i.e., not issuing the  `mendeleydesktop --sync-then-quit`) did not help either (many Zotero changes did not propagate after waiting for up to 10 minutes and Mendeley can use a fair amount of CPU).
+
+<!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
+
+<!-- THIS IS OLD AND WILL NOT WORK. Left just for historical reasons. -->
+
+<!-- I tried that too, but it won't work well. You might think, for instance, -->
+<!-- about configuring Mendeley to have continuous integration of your Zotero -->
+<!-- db, and then launching mendeley whenever there is a change by issuing -->
+<!-- something like `mendeleydesktop --sync-then-quit` (yes, you need to sync; -->
+<!-- running mendeley offline will not trigger a conversion of the Zotero -->
+<!-- db). But this will rarely be a satisfactory experience. Why? -->
+
+<!-- - It is unreliable: I often got crashes (looking at the logs I could not understand what was happening) so that changes in Zotero would actually not propagate. -->
+<!-- - Even when it works, it is very slow (can take over 10 minutes to do the -->
+<!--   conversion). -->
+<!-- - Mendeley does not import Zotero's collections correctly. This is a -->
+<!--   [well known, more than six years old problem](http://feedback.mendeley.com/forums/4941-general/suggestions/389900-allow-importing-nested-hierarchical-zotero-collect). (I -->
+<!--   must be missing something, because it seems trivial to map from Zotero's -->
+<!--   collections to Mendeley's folders, or at least to do it in a way that -->
+<!--   will allow Referey to show the right thing). -->
+<!-- - Keeping Mendeley continuously open (i.e., not issuing the  `mendeleydesktop --sync-then-quit`) did not help either (many Zotero changes did not propagate after waiting for up to 10 minutes and Mendeley can use a fair amount of CPU). -->
 
 
 
@@ -427,8 +434,7 @@ just keep reading :-) ).
 
 ## License ##
 
-All the code here is copyright, 2015, Ramon Diaz-Uriarte, and is licensed
-under the [GNU Affero GPL Version 3 License](http://www.gnu.org/licenses/agpl-3.0.en.html).
+All the code here is copyright, 2015-2024, Ramon Diaz-Uriarte, and is licensed under the [GNU Affero GPL Version 3 License](http://www.gnu.org/licenses/agpl-3.0.en.html).
 
 
 <!---
