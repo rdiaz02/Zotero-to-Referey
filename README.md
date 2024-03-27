@@ -390,7 +390,7 @@ in specific locations. I see no advantage over my currently working setup).
 
 ### What about Zoo for Zotero (2023, 2024) ###
 
-Zoo for Zotero would do all I need it to do. But, alas, it is very slow with my library: more than 2 minutes to load it ---these are more than 2 minutes after the initial sync---, whereas Refery takes less than 10 seconds), I get error messages, and I often experience problems opening PDFs (i.e., very rarely can I open the PDF, instead getting the "Zoo for Zotero isn't responding" message) ---this is a known issue https://github.com/mickstar/Zoo-For-Zotero/issues/118. 
+Zoo for Zotero would do all I need. But, alas, it is very slow with my library: more than 2 minutes to load it ---these are more than 2 minutes after the initial sync---, whereas Refery takes less than 10 seconds), I get error messages, and I often experience problems opening PDFs (i.e., very rarely can I open the PDF, instead getting the "Zoo for Zotero isn't responding" message) ---this is a known issue https://github.com/mickstar/Zoo-For-Zotero/issues/118. 
 
 
 <!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
