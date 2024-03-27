@@ -15,7 +15,7 @@
 ## <http://www.gnu.org/licenses/>.
 
 
-## 2022-07-08
+## 2022-07-08: Exporting only libraryID == 1
 
 ## This is very quick hack. I will only export those with libraryID = 1
 ## I think libraryID = 1 is the "primary library". I've started using group
