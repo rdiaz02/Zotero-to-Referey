@@ -1,4 +1,4 @@
-## Copyright  2017 Ramon Diaz-Uriarte
+## Copyright  2017-2024 Ramon Diaz-Uriarte
 
 ## This program is free software: you can redistribute it and/or modify it
 ## under the terms of the GNU Affero General Public License as published
@@ -15,11 +15,18 @@
 ## <http://www.gnu.org/licenses/>.
 
 
-## 2022-07-08 This is very quick hack. I will only export those with libraryID =
-## 1 I think libraryID = 1 is the "primary library". I've started using group
+## 2022-07-08
+
+## This is very quick hack. I will only export those with libraryID = 1
+## I think libraryID = 1 is the "primary library". I've started using group
 ## libraries, and if I export all, it upsets sorting by date added (as the ones
 ## in the new library are much more recent, even if the original paper was in my
 ## library long ago).
+
+## If you want to export all libraries, got to line 
+## where it says "Only libraryID == 1". Comment the next four lines
+## and uncomment the line after "If you want all libraries"
+
 
 ## I guess more sophisticated schemes would be possible, like getting the
 ## libraryID name, and putting that in a field of Mendeley. Not now, as I do not
@@ -34,14 +41,10 @@
 
 cat("\n Job started at ", date(), "\n")
 
-library(compiler)
-enableJIT(3)
-library(parallel)
-
 ca <- commandArgs(trailingOnly = TRUE)
-if(length(ca) == 2) {
-    c1 <- strsplit(ca[1], "=")[[1]]
-    if(c1[1] != "ZOTTMP")
+if (length(ca) == 2) { ## Run from a script, passing arguments
+  c1 <- strsplit(ca[1], "=")[[1]]
+  if(c1[1] != "ZOTTMP")
         stop("First argument must be ZOTTMP=sometmpfile")
     conZf <- c1[2]
     c2 <- strsplit(ca[2], "=")[[1]]
@@ -49,23 +52,22 @@ if(length(ca) == 2) {
         stop("First argument must be REFEREYSQLITE=somefile")
     conRf <- c2[2]
     cat("\n Using files supplied via command line arguments\n")
-} else {
-    ##     #######   MODIFY THIS     #######
-    ## Ideally, you should only need to modify these three lines.
-    ## Name of Zotero sqlite. For safety, we use a copy
-    conZf <- "~/tmp/zotero-cp.sqlite"
-    ## Directory for all temp stuff
-    setwd("~/tmp/")
-    ## Name of sqlite for Referey, left under the temporary
-    ## directory. Will be deleted and overwritten
-    conRf <- "minimal-Referey.sqlite"
+} else { ## Run interactively from R
+  ##     #######   MODIFY THIS     #######
+  ## Ideally, you should only need to modify these three lines.
+  ## Name of Zotero sqlite. For safety, we use a copy
+  ## Same as variable ZOTTMP
+  conZf <- paste0(Sys.getenv("ZOTERO_REFEREY_TMPDIR"), "/zotero-cp.sqlite")
+  ## Directory for all temp stuff
+  setwd(Sys.getenv("ZOTERO_REFEREY_TMPDIR"))
+  ## Name of sqlite for Referey, left under the temporary
+  ## directory. Will be deleted and overwritten
+  conRf <- "minimal-Referey.sqlite"
 }
 
 ## End of configuration part 
 
-
-
-
+library(parallel)
 library(uuid, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 library(RSQLite, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 library(reshape2, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
@@ -73,8 +75,6 @@ library(dplyr, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 library(digest, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE)
 
 conZ <- dbConnect(SQLite(), conZf)
-## tablesZ <- dbListTables(conZ)
-
 
 
 ######################################################################
@@ -277,7 +277,6 @@ fillRemoteFolders <- function(folderId,
 ######################################################################
 ######################################################################
 
-
 #### Getting and processing Zotero's data
 
 lid <- dbGetQuery(conZ, "
@@ -285,30 +284,8 @@ SELECT * FROM itemData
 INNER JOIN itemDataValues using (valueID)
 INNER JOIN fields using (fieldID)
 ")[, c(1, 4, 5)]
-## the above gives the warning
-## In rsqlite_fetch(res@ptr, n = n) :
-## Column `value`: mixed type, first seen values of type string, coercing other values of type integer, integer64
-## 
 
 wideItemData <- dcast(lid, itemID ~ fieldName)
-## not the fastest
-## wideItemData <- with(lid, tapply(value, list(itemID, fieldName), identity))
-## library(tidyr) ## slower than dcast?
-## w3 <- spread(lid, fieldName, value)
-##
-## I'll need to play with dates, as Mendeley uses milliseconds since 1970
-## but Zotero uses a decent date.
-## iner or left outer are the same, of course, in this case
-## items2 <- dbGetQuery(conZ, "
-##           select * from items
-##           left outer join itemTypes using (itemTypeID)
-##           ")[, c(1, 2, 8, 7, 3, 4)]
-
-
-## items1 <- dbGetQuery(conZ, "
-##           select * from items
-##           inner join itemTypes using (itemTypeID)
-##           ")[, c(1, 2, 8, 7, 3, 4)]
 
 items1 <- dbGetQuery(conZ, "
           select * from items
@@ -327,14 +304,6 @@ colnames(items1)[4] <- "directory"
 items1 <- items1[, c("itemID", "itemTypeID", "typeName", "directory",
                      "added", "modified", "libraryID")]
 
-## ## Some checks 
-## setdiff(wideItemData$itemID, items1$itemID)
-## ## And these?
-## setdiff(items1$itemID, wideItemData$itemID )
-## ## those are all notes
-## table(items1[items1$itemID %in%
-##              setdiff(items1$itemID, wideItemData$itemID ), ]$typeName)
-## ## and there is nothing in those directories anyway. Seems gone.
 fullWide <- left_join(wideItemData, items1, by = "itemID")
 dd <- t(sapply(fullWide$date, fd))
 fullWide$year <- dd[, 1]
@@ -342,16 +311,18 @@ fullWide$month <- dd[, 2]
 fullWide$day <- dd[, 3]
 rm(dd)
 
-
-## Original code before exporting only libraryID == 1
-## ZfullWideNoAttach <- fullWide[(fullWide$typeName != "attachment"), ]
-
-## Now: only libraryID == 1, and then rm that column, as I think
+###  Only libraryID == 1
+## Subset only libraryID == 1, and then rm that column, as I think
 ## it breaks stuff otherwise
+
 ZfullWideNoAttach <- fullWide[(fullWide$typeName != "attachment") &
                               (fullWide$libraryID == 1), ]
 col_libraryID <- which(colnames(ZfullWideNoAttach) == "libraryID")
 ZfullWideNoAttach <- ZfullWideNoAttach[, -col_libraryID]
+
+## If you want all libraries, comment up to "Only libraryID == 1"
+## and uncomment next line
+## ZfullWideNoAttach <- fullWide[(fullWide$typeName != "attachment"), ]
 
 
 MendeleyColumnNames <- c("itemID", "typeName", "abstractNote", "added",
@@ -389,38 +360,9 @@ ZAttach$hash <- sapply(ZAttach$pathLast, digest)
 ## or is it parentItemID?
 ZAttach <- subset(ZAttach, parentItemID > 0)
 
-
 ZTags <- left_join(dbReadTable(conZ, "itemTags"),
-                    dbReadTable(conZ, "tags")[, c("tagID", "name")],
+                   dbReadTable(conZ, "tags")[, c("tagID", "name")],
                     by = "tagID")
-
-## Duplicated tags within documents can create problems below
-## but this will not work here, since the problem are the names,
-## not the numerical IDs. Too bad, since this is much faster
-## it1 <- dbReadTable(conZ, "itemTags")
-## it1spl <- split(it1, it1$itemID)
-
-## rm_dupl_idtags <- cmpfun(function(z) {
-##     data.frame(itemID = z[1, "itemID"],
-##                tagID = unique(z[, "tagID"]),
-##                stringsAsFactors = FALSE)
-## })
-
-## it1ud <- dplyr::bind_rows(lapply(it1spl, rm_dupl_idtags))
-
-## ZTags <- left_join(it1ud,
-##                    dbReadTable(conZ, "tags")[, c(1, 2)],
-##                    by = "tagID")
-
-## We do this below after removing replicated tags per document
-## ## I think Mendeley has them sorted by number of tags
-## count <- data.frame(table(ZTags$itemID))
-## count[, 1] <- as.numeric(as.character(count[, 1]))
-## colnames(count)[1] <- "itemID"
-## ZTags <- left_join(ZTags, count, by = "itemID")
-## ZTags <- ZTags[order(ZTags$Freq, ZTags$itemID), 1:3]
-## rownames(ZTags) <- NULL
-
 
 ZAuthors <- left_join(dbReadTable(conZ, "itemCreators"),
                       dbReadTable(conZ, "creators")[, c("creatorID", "firstName", "lastName")],
@@ -437,9 +379,9 @@ ZAuthors <- left_join(ZAuthors,
 
 ZAuthors$contribution <- ZAuthors$creatorType
 ZAuthors$contribution[ZAuthors$contribution %in% c("author", "contributor")] <-
-    "DocumentAuthor"
+  "DocumentAuthor"
 ZAuthors$contribution[ZAuthors$contribution %in% c("editor", "seriesEditor")] <-
-    "DocumentEditor"
+  "DocumentEditor"
 
 ## Presentations have "presenter". Software has "programmer" and there
 ## are a few other categories. Make them all "DocumentAuthor" to ensure
@@ -448,7 +390,6 @@ ZAuthors$contribution[ZAuthors$contribution %in% c("editor", "seriesEditor")] <-
 ZAuthors$contribution[ZAuthors$contribution %in%
                         c("presenter", "director",
                           "programmer")] <- "DocumentAuthor"
-
 
 ## For books with editor, but no authors, I think I must add the editors
 ## as authors, or else they are not shown
@@ -466,13 +407,6 @@ ZAuthors <- rbind(ZAuthors, ZA2)
 ZAuthors <- ZAuthors[order(ZAuthors$itemID), ]
 
 
-
-## no longer needed with Zotero 5. This info in creators
-## ZAuthors <- left_join(ZAuthors,
-##                      dbReadTable(conZ, "creatorData")[, c(1, 2, 3)],
-##                      by = "creatorDataID")
-
-
 ZCol <- dbReadTable(conZ, "collections")[, c(1, 2, 3)]
 ZCol$parentCollectionID[is.na(ZCol$parentCollectionID)] <- -1
 ZColItems <- dbReadTable(conZ, "collectionItems")
@@ -481,6 +415,7 @@ ZColItems <- dbReadTable(conZ, "collectionItems")
 ######################################################################
 ######################################################################
 ######################################################################
+
 try(dbDisconnect(minimalReferey), silent = TRUE)
 try(file.remove(conRf), silent = TRUE)
 if(exists("minimalReferey"))
@@ -561,7 +496,6 @@ createTable(
 	deduplicated	INT
 )
 ')
-
 
 createTable('CREATE TABLE "Files" (
 	hash	CHAR[40],
@@ -704,61 +638,31 @@ createTable('CREATE TABLE "FileNotes" (
 	FOREIGN KEY(documentId) REFERENCES Documents ( id )
 )')
 
-fillTable("Documents", ZtoDocuments()) 
-fillTable("Files", ZtoFiles()) 
-fillTable("DocumentContributors", ZtoDocumentContributors()) 
+fillTable("Documents", ZtoDocuments())
+fillTable("Files", ZtoFiles())
+fillTable("DocumentContributors", ZtoDocumentContributors())
 fillTable("Folders", ZtoFolders())
 fillTable("DocumentFolders", ZtoDocumentFolders())
 
-## tryzt <- try(fillTable("DocumentTags", ZtoDocumentTags())) ## Can fail if same document
-                                             ## has same tag repeated, in
-## successive rows in ZTags
-## you will get the message
-## Error in rsqlite_bind_rows(rs@ptr, value) : 
-##   UNIQUE constraint failed: DocumentTags.documentId, DocumentTags.tag
 
-## Trying to prevent the problem. Nope, cannot be done before we
-## have the tags. Might want to move this code above?
+## Trying to prevent the problem of same document having repeated tags.
+## Might want to move this code above?
 
 x <- ZtoDocumentTags()
 x$tag <- as.character(x$tag) ## do not use a factor here as it slows things down
 xspl <- split(x, x$documentId)
 
-rm_dupl_tags <- cmpfun(function(z) {
-    data.frame(documentId = z[1, "documentId"],
-               tag = unique(z[, "tag"]),
-               stringsAsFactors = FALSE)
-})
-
-## slow
-## system.time(xu <- dplyr::bind_rows(lapply(xspl, rm_dupl_tags)))
-## system.time(xu <- dplyr::bind_rows(mclapply(xspl,
-##                                             dplyr::distinct_,
-##                                             mc.cores = detectCores())))
-## this is faster than distinct_
+rm_dupl_tags <- function(z) {
+  data.frame(documentId = z[1, "documentId"],
+             tag = unique(z[, "tag"]),
+             stringsAsFactors = FALSE)
+}
 
 length(xspl)
-
 
 system.time(xu <- dplyr::bind_rows(mclapply(xspl,
                                             rm_dupl_tags,
                                             mc.cores = detectCores())))
-
-## ## The parallelization can fails with mc. cores > 2 when having
-## the _R_CHECK_LIMIT_CORES_=TRUE environment variable,
-## to mimic BioC's behavior.
-## system.time( {
-##     xsplmc <- mclapply(xspl,
-##                        rm_dupl_tags,
-##                        mc.cores = 2)
-##     xu <- dplyr::bind_rows(xsplmc)
-##     })
-
-## Simple, no parall
-## system.time(xu <- dplyr::bind_rows(lapply(xspl,
-##                                           rm_dupl_tags)))
-
-
 
 ## resort by number of tags, as Mendeley has them
 ## copy code from above
@@ -772,7 +676,6 @@ rownames(ZTags2) <- NULL
 tryzt2 <- try(fillTable("DocumentTags", ZTags2)) 
 
 ######
-
 
 fillTable("DocumentFiles", ZtoDocumentFiles()) 
 fillTable("DocumentUrls", ZtoDocumentUrls())
@@ -808,8 +711,23 @@ rs <- dbSendQuery(minimalReferey,'
   CREATE INDEX RemoteDocuments_DocumentIndex ON RemoteDocuments(documentId)
 ')
 dbClearResult(rs)
-dbListTables(minimalReferey) ## needed to prevent Closing open result set
+## needed to prevent Closing open result set
+dbListTables(minimalReferey) 
 dbDisconnect(minimalReferey)
 
-
 cat("\n Job finished at ", date(), "\n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
