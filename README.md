@@ -3,10 +3,11 @@
 _Use Referey on Androids with your Zotero db. Or export your Zotero db in
 a way that Referey will be able to use._
 
-The `zotero-to-referey.R` or, if you use Zotero 5, `zotero5-to-referey.R` code will take a [Zotero](http://www.zotero.org)
+
+`zotero-to-referey.R` will take a [Zotero](http://www.zotero.org)
 sqlite database (db) and convert it into a database that
 [Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
-and Android application, can handle.
+and Android application, can handle. 
 
 Before we get going, a **WARNING**: as the license clearly states, this is 
 provided without any warranty. The instructions below change paths, 
@@ -17,11 +18,10 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
-## New: Zotero 5 (2017-12-28) ##
+## New (July 2022): Exporting only libraryID == 1 ##
 
-I have added a new file, **zotero5-to-referey.R** that should work with
-Zotero 5. Use this instead of **zotero-to-referey.R** in file
-**run-zotero-to-referey.sh**.
+I've modified the script so that only libraryID = 1 is exported. I think libraryID = 1 is the "primary library". I've started using group libraries, and if I export all, it upsets sorting by date added (as the ones in the new library are much more recent, even if the original paper was in my library long ago). If you want to export all libraries, see instructions on file **zotero-5-to-referey.R**.
+
 
 ## Why ##
 
@@ -86,13 +86,12 @@ Zotero's db.
 #### The code ####
 
 I do the conversion using R. I use R instead of, say, Python because it is
-just simpler for me. The R script **zotero5-to-referey.R** (or
-**zotero-to-referey.R**) gets the needed
+just simpler for me. The R script **zotero-5-to-referey.R** gets the needed
 data from the Zotero sqlite db, modifies/restructures it, and creates a
 new db that Referey understands.
 
 
-You can use the R script **zotero5-to-referey.R** directly (you should only
+You can use the R script **zotero-5-to-referey.R** directly (you should only
 need to modify the first few lines). However, I have a shell script,
 **run-zotero-to-referey.sh**, that is actually in charge of calling the R
 script. This script is called automatically whenever there is a change in
@@ -248,6 +247,11 @@ allow you to make changes to your Zotero db. For instance, you could add
 tags or notes to an entry (not a PDF) in your Zotero db because of
 something that you realized while reading the PDF.
 
+
+### If you still use Zotero 4
+
+If you use Zotero 4, use **zotero-4-to-referey.R** in file
+**run-zotero-to-referey.sh**. **zotero-5-to-referey.R** works with Zotero 5, 6, and 7.
 
 
 ##  Alternatives ##
