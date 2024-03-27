@@ -18,6 +18,40 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
+
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Zotero to Referey](#zotero-to-referey)
+    - [New (July 2022): Exporting only libraryID == 1](#new-july-2022-exporting-only-libraryid--1)
+    - [Why](#why)
+    - [What](#what)
+    - [Why Referey](#why-referey)
+        - [A better way](#a-better-way)
+            - [The code](#the-code)
+        - [Using it (user configuration) and requirements](#using-it-user-configuration-and-requirements)
+        - [Configuring Referey](#configuring-referey)
+            - [Configuring Referey in recent (post 2018?) Androids](#configuring-referey-in-recent-post-2018-androids)
+        - [Syncthing](#syncthing)
+            - [My setup](#my-setup)
+        - [Running automatically](#running-automatically)
+        - [What this won't do](#what-this-wont-do)
+        - [If you still use Zotero 4](#if-you-still-use-zotero-4)
+    - [Alternatives](#alternatives)
+        - [Alternative Zotero and Android routes](#alternative-zotero-and-android-routes)
+        - [What about ZotDroid (2017-12-28; 2018-03-25)](#what-about-zotdroid-2017-12-28-2018-03-25)
+        - [What about Zoo for Zotero (2023, 2024)](#what-about-zoo-for-zotero-2023-2024)
+    - [Improvements](#improvements)
+    - [Ramblings](#ramblings)
+    - [License](#license)
+
+<!-- markdown-toc end -->
+
+
+
+
+
 ## New (July 2022): Exporting only libraryID == 1 ##
 
 I've modified the script so that only libraryID = 1 is exported. I think libraryID = 1 is the "primary library". I've started using group libraries, and if I export all, it upsets sorting by date added (as the ones in the new library are much more recent, even if the original paper was in my library long ago). If you want to export all libraries, see instructions on file **zotero-5-to-referey.R**.
