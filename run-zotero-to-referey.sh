@@ -5,7 +5,7 @@
 ## Referey (left in the TMPDIR).  Then it copies this file to the files
 ## for the Android tablet(s) (REFEREY1, REFEREY2, ...).
 
-### Variables
+######################### Variables
 ## The value of these variables is taken from environment variables
 ## if not specified here.
 
@@ -23,8 +23,7 @@ REFEREY_TABLET_BCKP=$REFEREY_DB1_BKP
 ## this script. I assume you want to leave the output there as well.
 BASEDIR=$(dirname $BASH_SOURCE)
 
-
-### Run
+######################### Run
 
 ## For safety, input to the R script is a temporary copy of the
 ## zotero sqlite DB.
@@ -35,10 +34,7 @@ cp "$ZOT_SQLITE" "$ZOTTMP"
 ## since $REFEREY1_DB1 does not exist
 cp "$REFEREY_TABLET" "$REFEREY_TABLET_BCKP"
 
-
-R --vanilla -s --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero5-to-referey-only-libraryID1.R &>> $BASEDIR/zotero-to-referey.Rout
-
-
+R --vanilla -s --args ZOTTMP=$ZOTTMP REFEREYSQLITE=$REFEREYSQLITE < $BASEDIR/zotero-5-to-referey.R &>> $BASEDIR/zotero-to-referey.Rout
 
 cp $REFEREYSQLITE $REFEREY_TABLET
 
