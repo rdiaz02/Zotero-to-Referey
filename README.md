@@ -39,9 +39,12 @@ use common sense (for starters, do a backup).
         - [What this won't do](#what-this-wont-do)
         - [If you still use Zotero 4](#if-you-still-use-zotero-4)
     - [Alternatives](#alternatives)
-        - [Alternative Zotero and Android routes](#alternative-zotero-and-android-routes)
-        - [What about ZotDroid (2017-12-28; 2018-03-25)](#what-about-zotdroid-2017-12-28-2018-03-25)
-        - [What about Zoo for Zotero (2023, 2024)](#what-about-zoo-for-zotero-2023-2024)
+        - [Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable](#zotero-for-android-apps-in-2015-zandy-zed-zojo-zotfile-zotable)
+        - [Using BibTeX in the Android tablet](#using-bibtex-in-the-android-tablet)
+        - [ZotDroid](#zotdroid)
+        - [ZotEZ2](#zotez2)
+        - [Zoo for Zotero](#zoo-for-zotero)
+        - [The "official" Zotero for Android](#the-official-zotero-for-android)
     - [Improvements](#improvements)
     - [Ramblings](#ramblings)
     - [License](#license)
@@ -292,105 +295,75 @@ If you use Zotero 4, use **zotero-4-to-referey.R** in file
 
 
 
-### Alternative Zotero and Android routes ###
+<!-- ### Alternative Zotero and Android routes ### -->
 
-As I said, I recently started using Zotero, coming from Mendeley. When
-using Mendeley, I used Referey in the tablets (see
-[Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html)). When
-I moved to Zotero,
-[I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
+<!-- As I said, I started using Zotero in 2015, coming from Mendeley. When -->
+<!-- using Mendeley, I used Referey in the tablets (see -->
+<!-- [Zotero, Mendeley, a tablet, et al.](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html)). When -->
+<!-- I moved to Zotero, -->
+<!-- [I sorely missed the convenience of Referey](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet). -->
 
-There are some apps listed under
-[Zotero for Mobile](https://www.zotero.org/support/mobile), but none will
-do [what I want](#why), at least in Android systems. In fact, I have tried
-all of those listed:
-[Zandy](http://www.gimranov.com/avram/w/zandy-user-guide),
-[Zed](http://www.favand.net/zed),
-[Zed Lite](https://play.google.com/store/apps/details?id=net.favand.zedlite),
-[Zojo](https://play.google.com/store/apps/details?id=com.phani.zojo),
-[Zotfile](http://zotfile.com/), plus
-[Zotable](https://play.google.com/store/apps/details?id=com.mattrobertson.zotable.app),
-but none satisfy the requirements above. Zandy, Zotable, Zed, and Zed Lite
-so far will not allow you to get PDFs that already live locally in your
-tablet. Yes, you might be able with some of those apps to fetch PDFs,
-either from Zotero's servers, if you keep them there, of using WebDAV from
-a user-specified server, but then, that is not a workable solution if you
-want offline access to all and any of your PDFs. Zojo seems to have a
-[way to access your local PDFs](https://forums.zotero.org/discussion/45461/zojo-an-android-app-for-viewing-citations-stored-at-zotero/), but Zojo does not show
-collections or tags (yes, you can search, but I do not find this very
-convenient). Zotfile often requires too much manual intervention (see my
-[attempts to use Zotfile](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html#sec-6-2)
----this might be that I never actually fully understood how to use
-Zotfile) and, even if you manage to automate that, you have the PDFs in
-the tablet but you loose the rest of the structure (tags, collections)
-from your Zotero db which, again, makes things a lot less useful: I do not
-want just the bare PDFs.
+### Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable ###
+
+(This is left here for historical purposes: most of these apps are no longer available)
+
+When I started using Zotero in 2025, there were some apps listed under [Zotero for Mobile](https://www.zotero.org/support/mobile), but none did do [what I wanted](#why), at least in Android systems. I tried all of those listed: [Zandy](http://www.gimranov.com/avram/w/zandy-user-guide), [Zed](http://www.favand.net/zed), [Zed Lite](https://play.google.com/store/apps/details?id=net.favand.zedlite), [Zojo](https://play.google.com/store/apps/details?id=com.phani.zojo), [Zotfile](http://zotfile.com/), plus [Zotable](https://play.google.com/store/apps/details?id=com.mattrobertson.zotable.app), but none satisfy the requirements above.
 
 
-Given the above,
-[I tried using BibTeX Android applications](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet).
-This idea has been mentioned in other places
-([e.g., the comment by smatthie, on 2015-09-15](https://forums.zotero.org/discussion/51234/zotable-a-modern-zotero-client-for-android/?Focus=239548)):
-basically, export the Zotero db as a BibTeX file, using the
-[Zotero BBT extension](https://zotplus.github.io/better-bibtex/) that
-exports Zotero collections as
-[JabRef's groups](http://jabref.sourceforge.net/help/GroupsHelp.php), and
-use an Android BibTeX app. There are three Android apps that will deal
-with BibTeX files but I did not like this solution either. Briefly, of the
-available ones,
-[Library](https://play.google.com/store/apps/details?id=com.cgogolin.library)
-cannot show your Zotero collections or sort by date,
-[RefMaster](https://play.google.com/store/apps/details?id=me.bares.refmaster)
-does not support more than one file per entry and does not support Zotero
-collections, and
-[Erathostenes](https://play.google.com/store/apps/details?id=com.mm.eratos)
-will only show the lower-most level of collections, is extremely slow, and
-often I need to kill and restart it as the app will hang. By extremely
-slow I mean that reloading my library of about 3000 references and about
-100 collections/groups on an Asus TF201 can take over 40 minutes (10 to load
-the db and over 30 to deal with the JabRef groups); a Nexus 7 can do it in
-between 10 and 20' total. Changes in Zotero, thus, are painful to update
-in the tablets.
+Zandy, Zotable, Zed, and Zed Lite so far will not allow you to get PDFs that already live locally in your tablet. Yes, you might be able with some of those apps to fetch PDFs, either from Zotero's servers, if you keep them there, of using WebDAV from a user-specified server, but then, that is not a workable solution if you want offline access to all and any of your PDFs. 
 
-When using Referey, in contrast, I launch Referey and load the complete db
-in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed
-ups of 100x to 200x. And I keep my complete collection structure.
+Zojo seems to have a [way to access your local PDFs](https://forums.zotero.org/discussion/45461/zojo-an-android-app-for-viewing-citations-stored-at-zotero/), but Zojo does not show collections or tags (yes, you can search, but I do not find this very convenient). 
+
+Zotfile often requires too much manual intervention (see my [attempts to use Zotfile](http://ligarto.org/rdiaz/Zotero-Mendeley-Tablet.html#sec-6-2) ---this might be that I never actually fully understood how to use Zotfile) and, even if you manage to automate that, you have the PDFs in the tablet but you loose the rest of the structure (tags, collections) from your Zotero db which, again, makes things a lot less useful: I do not want just the bare PDFs. 
 
 
-### What about ZotDroid (2017-12-28; 2018-03-25) ###
 
-ZotDroid was announced in the [Zotero forum](https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android)
-and is available from the Play Store. It seems a very interesting app and
-it ought to allow syncing changes back. In addition, it is also possible
-to specify a local path for the PDFs (see this comment in the [Zotero forum](https://forums.zotero.org/discussion/comment/285410/#Comment_285410)).
+### Using BibTeX in the Android tablet ###
 
-However, I've tried using it with no luck. Basically, it is very slow when
-syncing and loading the collection and then it hangs in any of the usual
-operations (searching, scrolling, jumping to a collection, etc.). I've
-posted these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/296781/#Comment_296781).
+Given the above, [I tried using BibTeX Android applications](https://github.com/rdiaz02/Adios_Mendeley#using-a-tablet). This idea has been mentioned in other places ([e.g., the comment by smatthie, on 2015-09-15](https://forums.zotero.org/discussion/51234/zotable-a-modern-zotero-client-for-android/?Focus=239548)): basically, export the Zotero db as a BibTeX file, using the [Zotero BBT extension](https://zotplus.github.io/better-bibtex/) that exports Zotero collections as [JabRef's groups](http://jabref.sourceforge.net/help/GroupsHelp.php), and use an Android BibTeX app. 
 
-I have tried again with version 1.1.5 (as of 2018-03-25). Still way too slow
-for real usage, and it is not possible to use, in a sensible way,
-the local collection of PDFs. Sorting and searching are also
-very limited compared to Referey. Finally, syncing requires, well,
-remembering to sync your collection (i.e., is not something 
-that happens automagically via a general syncing solution for the tablet).
 
-See my report of these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/304449/#Comment_304449).
-And it continues to be mostly just a read-only option (i.e., does
-not provide anything else beyond my current setup).
+In 2015, there were three Android apps that dealt with BibTeX files but I did not like this solution either. Briefly, of the available ones, [Library](https://play.google.com/store/apps/details?id=com.cgogolin.library) cannot show your Zotero collections or sort by date, [RefMaster](https://play.google.com/store/apps/details?id=me.bares.refmaster) does not support more than one file per entry and does not support Zotero collections, and [Erathostenes](https://play.google.com/store/apps/details?id=com.mm.eratos) will only show the lower-most level of collections, is extremely slow, and often I need to kill and restart it as the app will hang. By extremely slow I mean that reloading my library of about 3000 references and about 100 collections/groups on an Asus TF201 can take over 40 minutes (10 to load the db and over 30 to deal with the JabRef groups); a Nexus 7 can do it in between 10 and 20' total. Changes in Zotero, thus, are painful to update in the tablets. When using Referey, in contrast, I launch Referey and load the complete db in about 20 seconds in the Asus TF201 and 5 in the Nexus. Those are speed ups of 100x to 200x. And I keep my complete collection structure. 
 
-So, at least for now, I'll definitely continue using Referey since
-ZotDroid is not (yet?) a viable alternative at least for my collection
-and/or hardware.
 
-(I just stumbled upon another app, ZotEZ, but is seems it is still in beta
-and is also read only; moreover, instructions on how to use a local collection force you to place things
-in specific locations. I see no advantage over my currently working setup).
+On December 2023 I tried [BibTex Manager](https://play.google.com/store/apps/details?id=org.eu.thedoc.bibtexmanager). Loading the database is much slower that using Referey, and I loose the hierarchical view of the Zotero collections. This last problem is, for me, a serious one: I often use Zotero to organize what I am reading, putting together in a "collection" or "folder" the papers of a particular thing I am reading about (this is a great feature of Zotero, where the same paper can live in multiple folders). With BibTeX Manager, there are not collections or folders. I'd need to use tags to search for entries, instead of simply navigating to the "folder" or "collection". This would then require me to start duplicating, via tags, the collections, or else create fake tags from collections during the export of the BibTeX file to the tablet, so these tags appear first. In addition, opening local PDFs those not work out-of-the-box: it would require re-writing the path of the PDFs on sending the BibTeX file to the tablet; this is easy to do, but given the former problems I did not try it. 
 
-### What about Zoo for Zotero (2023, 2024) ###
 
-Zoo for Zotero would do all I need. But, alas, it is very slow with my library: more than 2 minutes to load it ---these are more than 2 minutes after the initial sync---, whereas Refery takes less than 10 seconds), I get error messages, and I often experience problems opening PDFs (i.e., very rarely can I open the PDF, instead getting the "Zoo for Zotero isn't responding" message) ---this is a known issue https://github.com/mickstar/Zoo-For-Zotero/issues/118. 
+### ZotDroid ### 
+
+ZotDroid was announced in the [Zotero forum](https://forums.zotero.org/discussion/67409/zotdroid-a-zotero-client-for-android) and was available from the Play Store (update on 2024-03-28: ZotDroid no longer seems available from the Play Store; see also [ZotDroid is down](https://forums.zotero.org/discussion/95452/zotdroid-is-down); the sources are [available from GitHub](https://github.com/ARF1/ZotDroid)). 
+
+It seems a very interesting app and it ought to allow syncing changes back. In addition, it is also possible to specify a local path for the PDFs (see this comment in the [Zotero forum](https://forums.zotero.org/discussion/comment/285410/#Comment_285410)). However, I've tried using it with no luck. Basically, it is very slow when syncing and loading the collection and then it hangs in any of the usual operations (searching, scrolling, jumping to a collection, etc.). I've posted these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/296781/#Comment_296781). 
+
+I have tried again with version 1.1.5 (as of 2018-03-25). Still way too slow for real usage, and it is not possible to use, in a sensible way, the local collection of PDFs. Sorting and searching are also very limited compared to Referey. Finally, syncing requires, well, remembering to sync your collection (i.e., is not something that happens automagically via a general syncing solution for the tablet). See my report of these problems in the [Zotero forum](https://forums.zotero.org/discussion/comment/304449/#Comment_304449). And it continues to be mostly just a read-only option (i.e., does not provide anything else beyond my current setup). 
+
+
+So, at least for now, I'll definitely continue using Referey since ZotDroid is not (yet?) a viable alternative at least for my collection and/or hardware. 
+
+### ZotEZ2 ###
+
+I tried [ZotEZ2](https://play.google.com/store/apps/details?id=net.ezbio.zotez2) around 2019 and 2021. The databases was read only, like my current setup. Instructions on how to use a local collection force you to place things in specific locations; the syncying of PDF annotations seems to require manually forcing a set of steps (see [this comment in the Zotero forums](https://forums.zotero.org/discussion/comment/343632/#Comment_343632)). I see no advantage over my currently working setup.
+
+
+On March 2024 I tried it again. As ZotEZ2 would seem to be able to use a local Zotero sqlite database that I can sync easily and local paths for PDFs, this would be exactly what I need (see [ZotEZ2 web page](https://zotez2.ezbio.net/)).  However, trying to use a local copy of the Zotero sqlite database does not work for (it gives me an error). That can be overcome by login into Zotero. But specifying a local path for the attachment gives again an error (it seems to be the same one); this has been reported, with no answer, in the Play Store comments. So I cannot use ZotEZ2. Most reviews I found in the Play Store for the last two years report different sorts of problems (yes, I know, there might be a bias in reviews, so that you get an over-representation of negative reviews, and many of the problems concerned syncing to cloud platforms, which does not affect my setup), and the app was last updated on April 2021. I give up trying.
+
+
+
+### Zoo for Zotero ###
+
+Zoo for Zotero would do all I need. And it seems to work very well for many people. But, alas, it is very slow with my library: more than 2 minutes to load it ---these are more than 2 minutes after the initial sync---, whereas Refery takes less than 10 seconds), I get error messages, and I often experience problems opening PDFs (i.e., very rarely can I open the PDF, instead getting the "Zoo for Zotero isn't responding" message) ---this is a known issue https://github.com/mickstar/Zoo-For-Zotero/issues/118. 
+
+
+
+
+### The "official" Zotero for Android ###
+
+In December 2023 Zotero launched a [Zotero for Android] (https://forums.zotero.org/discussion/110371/available-for-beta-testing-zotero-for-android/p1) !! This is still in beta, and I have not (yet) been able to get into the beta testing program (slots are limited, and they run out shortly after new slots are announced). 
+
+I am very excited about this app, but yet it might not be what I need. Why? Because the Android app will not support opening PDFs in exernal applications, so one needs to use the built-in Zotero PDF editor (see discussion in [this post and the following ones](https://forums.zotero.org/discussion/comment/455807/#Comment_455807) ) in Android. This will severely impact my use of Emacs to read and annotate PDFs in the computer. Yes, the wording is correct: not being able to use an external PDF editor in Android can affect what one uses in the computer, *because the built-in Zotero PDF editor does not add annotations directly in the PDF*: it stores annotation in the Zotero database (see [this discussion](https://forums.zotero.org/discussion/comment/404109/) and the [explanation in Zotero's support](https://www.zotero.org/support/kb/annotations_in_database))
+
+I've explained why using the Android app would affect my use of Emacs to annotate PDFs, and what I think are the terms of the trade-off [here](https://forums.zotero.org/discussion/113164/zotero-the-native-android-app-and-emacs-pdf-annotation-in-the-computer). (Using Zotero's Android app would probably also require using Zotero for storage of all of my PDFs, breaking some of my setup, but this is not a major concern; they key problem is not storing PDF annotations in the PDFs themselves).
+
 
 
 <!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
@@ -447,24 +420,7 @@ laptop). Main things:
 
 ## Ramblings ##
 
-The first requirement above, in [Why](#why), does not strike me as
-unreasonable. However, maybe my use case is unusual; this is what I gather
-based upon what is the most common design of virtually all Zotero Android
-apps: if PDF access is provided at all, it is by fetching them from the
-web (i.e., requiring being online). The exceptions are Zojo (partially)
-and Zotfile (but Zotfile in a sense is a different idea).  I think I must
-be missing something obvious, so here goes my reasoning: my whole PDF
-collection is about 8 GB, which fits easily even in tablets from a few
-years ago. Now, if your daily routine often includes two one-hour train
-commutes, or if you take an 8-hour airplane flight or if you meet friends
-that can make you wait for 50 minutes... , I think it is reasonable to
-want to have all of your PDFs in your tablet without any need to
-pre-decide what to read. I just don't want to have to think about "did I
-download the PDF to the tablet? Am I awake enough to read paper X?". That
-is the nice thing about tablets (compared to paper): even if aliens abduct
-you for a few days, as long as they let you charge your tablet, you can
-just keep reading :-) ).
-
+The first requirement above, in [Why](#why), does not strike me as unreasonable. However, maybe my use case is unusual; this is what I gather based upon what is the most common design of virtually all Zotero Android apps: if PDF access is provided at all, it is by fetching them from the web (i.e., requiring being online). There are exceptions, though.<!-- The exceptions are Zojo (partially) --> <!-- and Zotfile (but Zotfile in a sense is a different idea). --> I think I must be missing something obvious, so here goes my reasoning: my whole PDF collection is about 20 GB, which fits easily even in tablets from a few years ago. Now, if your daily routine often includes two one-hour train commutes, or if you take an 8-hour airplane flight or if you meet friends that can make you wait for 50 minutes... , I think it is reasonable to want to have all of your PDFs in your tablet without any need to pre-decide what to read. I just don't want to have to think about "did I download the PDF to the tablet? Am I awake enough to read paper X?". That is the nice thing about tablets (compared to paper): even if aliens abduct you for a few days, as long as they let you charge your tablet, you can just keep reading :-) ). 
 
 ## License ##
 
