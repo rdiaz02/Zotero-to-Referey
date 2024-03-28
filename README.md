@@ -364,7 +364,7 @@ I am very excited about this app, but yet it might not be what I need. Why? Beca
 
 
 I've explained in more detail [why using the Android app would affect my use of Emacs to annotate PDFs, and what I think are the terms of the trade-off](https://forums.zotero.org/discussion/113164/zotero-the-native-android-app-and-emacs-pdf-annotation-in-the-computer). (Using Zotero's Android app would probably also require using Zotero for storage of all of my PDFs, breaking some of my setup, but this is not a major concern; they key problem is not storing PDF annotations in the PDFs themselves).
-
+I've written a [longer blog post explaining this](https://www.ligarto.org/rdiaz/zotero_on_android). 
 
 
 <!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
