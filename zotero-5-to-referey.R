@@ -712,22 +712,12 @@ rs <- dbSendQuery(minimalReferey,'
 ')
 dbClearResult(rs)
 ## needed to prevent Closing open result set
-dbListTables(minimalReferey) 
+dbListTables(minimalReferey)
 dbDisconnect(minimalReferey)
 
 cat("\n Job finished at ", date(), "\n")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## If you want to export
+## collections as an Emacs org-mode file. See file
+## export_zotero_collections_to_org.R
+save(file = Sys.getenv("ZCOL_RDATA"), ZCol)
