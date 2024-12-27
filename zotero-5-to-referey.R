@@ -233,6 +233,9 @@ ZtoFolders <- function(Z = ZCol) {
                       replicate(nrow(Z), UUIDgenerate()),
                       "}"),
         name = Z$collectionName,
+        ## Is this leading to showing an item in all its parent collections?
+        ## Yes, but it is also needed to show the hierarchy of
+        ## collections.
         parentId = Z$parentCollectionID,
         access = "PrivateAccess",
         syncPolicy = "SyncFilesInSelectedCollections",
