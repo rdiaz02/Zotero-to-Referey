@@ -18,41 +18,42 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
+**A second WARNING** Don't use this; just use the [Zotero Android app](https://www.zotero.org/support/mobile). See details in [Update: you probably don't want to use this. Stick to the official Zotero for Android](#update-you-probably-dont-want-to-use-this-stick-to-the-official-zotero-for-android). 
 
+
+## Table of Contents ##
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
 
 - [Zotero to Referey](#zotero-to-referey)
-    - [New (July 2022): Exporting only libraryID == 1](#new-july-2022-exporting-only-libraryid--1)
-    - [Why](#why)
-    - [What](#what)
-    - [Why Referey](#why-referey)
-        - [A better way](#a-better-way)
-            - [The code](#the-code)
-        - [Using it (user configuration) and requirements](#using-it-user-configuration-and-requirements)
-        - [Configuring Referey](#configuring-referey)
-            - [Configuring Referey in recent (post 2018?) Androids](#configuring-referey-in-recent-post-2018-androids)
-        - [Syncthing](#syncthing)
-            - [My setup](#my-setup)
-        - [Running automatically](#running-automatically)
-        - [What this won't do](#what-this-wont-do)
-        - [If you still use Zotero 4](#if-you-still-use-zotero-4)
-    - [Alternatives](#alternatives)
-        - [Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable](#zotero-for-android-apps-in-2015-zandy-zed-zojo-zotfile-zotable)
-        - [Using BibTeX in the Android tablet](#using-bibtex-in-the-android-tablet)
-        - [ZotDroid](#zotdroid)
-        - [ZotEZ2](#zotez2)
-        - [Zoo for Zotero](#zoo-for-zotero)
-        - [The "official" Zotero for Android](#the-official-zotero-for-android)
-    - [Improvements](#improvements)
-    - [Ramblings](#ramblings)
-    - [License](#license)
+  - [Table of Contents](#table-of-contents)
+  - [New (July 2022): Exporting only libraryID == 1](#new-july-2022-exporting-only-libraryid--1)
+  - [Why](#why)
+  - [What](#what)
+  - [Why Referey](#why-referey)
+    - [A better way](#a-better-way)
+      - [The code](#the-code)
+    - [Using it (user configuration) and requirements](#using-it-user-configuration-and-requirements)
+    - [Configuring Referey](#configuring-referey)
+      - [Configuring Referey in recent (post 2018?) Androids](#configuring-referey-in-recent-post-2018-androids)
+    - [Syncthing](#syncthing)
+      - [My setup](#my-setup)
+    - [Running automatically](#running-automatically)
+    - [What this won't do](#what-this-wont-do)
+    - [If you still use Zotero 4](#if-you-still-use-zotero-4)
+  - [Alternatives](#alternatives)
+    - [Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable](#zotero-for-android-apps-in-2015-zandy-zed-zojo-zotfile-zotable)
+    - [Using BibTeX in the Android tablet](#using-bibtex-in-the-android-tablet)
+    - [ZotDroid ](#zotdroid)
+    - [ZotEZ2](#zotez2)
+    - [Zoo for Zotero](#zoo-for-zotero)
+    - [The "official" Zotero for Android](#the-official-zotero-for-android)
+    - [Update: you probably don't want to use this. Stick to the official Zotero for Android](#update-you-probably-dont-want-to-use-this-stick-to-the-official-zotero-for-android)
+  - [Improvements](#improvements)
+  - [Ramblings](#ramblings)
+  - [License](#license)
 
 <!-- markdown-toc end -->
-
-
-
 
 
 ## New (July 2022): Exporting only libraryID == 1 ##
@@ -358,13 +359,34 @@ Zoo for Zotero would do all I need. And it seems to work very well for many peop
 
 ### The "official" Zotero for Android ###
 
-In December 2023 Zotero launched a [Zotero for Android] (https://forums.zotero.org/discussion/110371/available-for-beta-testing-zotero-for-android/p1) !! This is still in beta, and I have not (yet) been able to get into the beta testing program (slots are limited, and they run out shortly after new slots are announced). 
+In December 2023 Zotero launched a [Zotero for Android] (https://forums.zotero.org/discussion/110371/available-for-beta-testing-zotero-for-android/p1) as a beta!! The first release was on [June 2025](https://forums.zotero.org/discussion/124672/now-available-zotero-for-android).
+
+<!-- This is still in beta, and I have not (yet) been able to get into the beta testing program (slots are limited, and they run out shortly after new slots are announced).  -->
 
 I am very excited about this app, but yet it might not be what I need. Why? Because the Android app will not support opening PDFs in exernal applications, so one needs to use the built-in Zotero PDF editor (see discussion in [this post and the following ones](https://forums.zotero.org/discussion/comment/455807/#Comment_455807) ) in Android. This will severely impact my use of Emacs to read and annotate PDFs in the computer. Yes, the wording is correct: not being able to use an external PDF editor in Android can affect what one uses in the computer, *because the built-in Zotero PDF editor does not add annotations directly in the PDF*: it stores annotation in the Zotero database (see [this discussion](https://forums.zotero.org/discussion/comment/404109/) and the [explanation in Zotero's support](https://www.zotero.org/support/kb/annotations_in_database)).  So, on the computer, I'd probably need to use the built-in Zotero PDF editor (unless I went through the manual and error prone procedure of exporting the annotations in the PDF itself, and then reattaching that file in the Zotero entry).
 
 
 I've asked in the Zotero forums if my reasoning [why I think using the Android app would affect my use of Emacs to annotate PDFs, and what I think are the terms of the trade-off](https://forums.zotero.org/discussion/113164/zotero-the-native-android-app-and-emacs-pdf-annotation-in-the-computer), is correct. (Using Zotero's Android app would probably also require using Zotero for storage of all of my PDFs, breaking some of my setup, but this is not a major concern; they key problem is not storing PDF annotations in the PDFs themselves).
 I've also written a [more detailed blog post explaining this](https://www.ligarto.org/rdiaz/zotero_on_android). 
+
+
+
+### Update: you probably don't want to use this. Stick to the official Zotero for Android
+
+The official Zotero for Android is fantastic. Just use that; that is what I do now.
+
+What about my comments and reservations above? The details probably deserve a blog post, as in the last few months I've played with this a bit. To summarize:
+- That annotations be part of the database (and not in the PDF) is, I have come to realize, actually fantastic: (sophisticated) searching is available in a tightly integrated system. And, please, do not forget the long available full text search. This is just a blast, really.
+- You can download all your attachments in one go (this is explained in many entries in the forum but, briefly, select the top level library entry, "All items", long press, and "Download attachments").
+- You can add, edit, attach items to, delete, and reorganize Zotero entries on the tablet. Wow!
+- Yes, some of the PDF editing is not (yet?) as smooth as you can get in external editors, but the above two probably offset the inconveniences (unless, of course, you hit a showstopper bug).
+
+In my attempts to avoid Android I've tried using a Windows (yeah...) tablet on which I run Zotero for Windows. But the "tablet experience" was not smooth. In that Windows tablet I then installed Linux and Zotero for Linux; again, no smooth "tablet experience" (though the machine is actually a lot nicer to use with Linux). In both cases I had excellent palm rejection, I could annotate PDFs, etc, but still, the whole process was not smooth.
+
+So I installed the official Android app in an Android tablet, and was blown away. And then I changed my setup in my computers:
+- In Zotero I open PDFs using Zotero's PDF editor in a new window.
+- I continue living inside Emacs and of course still use both (citar)[https://github.com/emacs-citar/citar] and (ebib)[https://github.com/joostkremers/ebib]. However, I call Zotero's PDF editor to open PDFs (not Emacs's pdf-tools) in the workspace where I am (I use XMonad).
+- I am no longer using Referey in the tablet.
 
 
 <!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
