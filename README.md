@@ -43,7 +43,7 @@ use common sense (for starters, do a backup).
   - [Alternatives](#alternatives)
     - [Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable](#zotero-for-android-apps-in-2015-zandy-zed-zojo-zotfile-zotable)
     - [Using BibTeX in the Android tablet](#using-bibtex-in-the-android-tablet)
-    - [ZotDroid ### ](#zotdroid-)
+    - [ZotDroid](#zotdroid)
     - [ZotEZ2](#zotez2)
     - [Zoo for Zotero](#zoo-for-zotero)
     - [The "official" Zotero for Android](#the-official-zotero-for-android)
