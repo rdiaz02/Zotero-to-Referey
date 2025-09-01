@@ -386,7 +386,7 @@ In my attempts to avoid Android I've tried using a Windows (yeah...) tablet on w
 So I installed the official Android app in an Android tablet, and was blown away. And then I changed my setup in my computers:
 - In Zotero I open PDFs using Zotero's PDF editor in a new window.
 - I continue living inside Emacs and of course still use both [citar](https://github.com/emacs-citar/citar) and [ebib](https://github.com/joostkremers/ebib). However, I call Zotero's PDF editor to open PDFs (not Emacs's pdf-tools) in the workspace where I am (I use XMonad).
-- I am no longer using Referey in the tablet.
+- I am no longer using Referey in the tablet. Referey with Zotero has been great, and it was, I think, the best way to go (at least for me) for a long time; but there is a much better alternative now. Time to move.
 
 
 <!-- ### Doing the Zotero to Referey conversion with Mendeley itself? ### -->
