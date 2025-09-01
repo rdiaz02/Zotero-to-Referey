@@ -373,7 +373,7 @@ I've also written a [more detailed blog post explaining this](https://www.ligart
 
 ### Update: you probably don't want to use this. Stick to the official Zotero for Android
 
-The official Zotero for Android is fantastic. Just use that ((https://www.zotero.org/support/mobile)); that is what I do now.
+The official Zotero for Android is fantastic. Just use that (https://www.zotero.org/support/mobile); that is what I do now.
 
 What about my comments and reservations above? The details probably deserve a blog post, as in the last few months I've played with this a bit. To summarize:
 - That annotations be part of the database (and not in the PDF) is, I have come to realize, actually fantastic: (sophisticated) searching is available in a tightly integrated system. And, please, do not forget the long available full text search. This is just a blast, really.
