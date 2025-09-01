@@ -27,8 +27,7 @@ use common sense (for starters, do a backup).
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
-- [Zotero to Referey](#zotero-to-referey)
-  - [Table of Contents](#table-of-contents)
+
   - [Why](#why)
   - [What](#what)
    - [Why Referey](#why-referey)
