@@ -227,7 +227,7 @@ modifications to the dbs, and in my setup both tablets share a directory
 with the computers, so I do not want there to be conflicts or races and
 setting up one-way syncs is more trouble than just copying the file. (This is
 probably a bit silly and setting it up so that some nodes are 
-read-only us trivial with Syncthing; oh well.)
+read-only is trivial with Syncthing; oh well.)
 
 
 #### My setup ####
