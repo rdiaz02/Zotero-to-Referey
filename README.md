@@ -32,7 +32,7 @@ use common sense (for starters, do a backup).
   - [What](#what)
    - [Why Referey](#why-referey)
     - [A better way](#a-better-way)
-      - [The code](#the-code)
+    - [The code](#the-code)
     - [Using it (user configuration) and requirements](#using-it-user-configuration-and-requirements)
     - [Configuring Referey](#configuring-referey)
       - [Configuring Referey in recent (post 2018?) Androids](#configuring-referey-in-recent-post-2018-androids)
