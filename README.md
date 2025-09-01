@@ -211,7 +211,9 @@ often
 sync `some-directory`). I also sync the dbs for Referey (**NOT** the
 Zotero dbs). By syncing the directory of the PDFs all of my PDF
 annotations, highlights, etc, are always shared between all machines as
-soon as they get back online.
+soon as they get back online (remember that I only use PDF reading/annotation 
+software that adds the annotation in the PDF itself ---if the PDF is synced,
+the annotations go along).
 
 With Zotero,
 [as is clearly explained in the documentation](https://www.zotero.org/support/sync),
