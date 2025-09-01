@@ -377,7 +377,7 @@ What about my comments and reservations above? The details probably deserve a bl
 - That annotations be part of the database (and not in the PDF) is, I have come to realize, actually fantastic: (sophisticated) searching is available in a tightly integrated system. And, please, do not forget the long available full text search. This is just a blast, really.
 - You can download all your attachments in one go (this is explained in many entries in the forum but, briefly, select the top level library entry, "All items", long press, and "Download attachments").
 - You can add, edit, attach items to, delete, and reorganize Zotero entries on the tablet. Wow!
-- Yes, some of the PDF editing is not (yet?) as smooth as you can get in external editors, but the above two probably offset the inconveniences (unless, of course, you hit a showstopper bug).
+- Yes, some of the PDF editing is not (yet?) as smooth as you can get in external editors, but the above probably offset the inconveniences (unless, of course, you hit a showstopper bug).
 
 In my attempts to avoid Android I've tried using a Windows (yeah...) tablet on which I run Zotero for Windows. But the "tablet experience" was not smooth. In that Windows tablet I then installed Linux and Zotero for Linux; again, no smooth "tablet experience" (though the machine is actually a lot nicer to use with Linux). In both cases I had excellent palm rejection, I could annotate PDFs, etc, but still, the whole process was not smooth.
 
