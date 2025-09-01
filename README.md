@@ -9,7 +9,10 @@ sqlite database (db) and convert it into a database that
 [Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
 and Android application, can handle. 
 
-Before we get going, a **WARNING**: as the license clearly states, this is 
+**WARNING number one:** Don't use this; just use the [Zotero Android app](https://www.zotero.org/support/mobile). See details in [Update: you probably don't want to use this. Stick to the official Zotero for Android](#update-you-probably-dont-want-to-use-this-stick-to-the-official-zotero-for-android). 
+
+
+If you continue, and before we get going, a **WARNING**: as the license clearly states, this is 
 provided without any warranty. The instructions below change paths, 
 sync files, etc. I am not responsible if trying to follow these instructions
 or using this code destroys your Zotero db, converts the PDFs 
@@ -18,7 +21,6 @@ makes your dishwasher eat your fridge, or whatever. And please,
 use common sense (for starters, do a backup).
 
 
-**A second WARNING** Don't use this; just use the [Zotero Android app](https://www.zotero.org/support/mobile). See details in [Update: you probably don't want to use this. Stick to the official Zotero for Android](#update-you-probably-dont-want-to-use-this-stick-to-the-official-zotero-for-android). 
 
 
 ## Table of Contents ##
