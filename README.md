@@ -259,10 +259,6 @@ changes. So as not to forget to run it, I have this line in my `.xsession` file:
 
 
 
-(You might want to use [entr](http://entrproject.org/), which is nice and
-simple, but I was missing some events; it would be triggered at open and
-close of Zotero, but not at intermediate changes with Zotero open, such as
-reorganizing the library, deleting tags, etc).
 
 
 
