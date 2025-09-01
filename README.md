@@ -29,10 +29,9 @@ use common sense (for starters, do a backup).
 
 - [Zotero to Referey](#zotero-to-referey)
   - [Table of Contents](#table-of-contents)
-  - [New (July 2022): Exporting only libraryID == 1](#new-july-2022-exporting-only-libraryid--1)
   - [Why](#why)
   - [What](#what)
-  - [Why Referey](#why-referey)
+   - [Why Referey](#why-referey)
     - [A better way](#a-better-way)
       - [The code](#the-code)
     - [Using it (user configuration) and requirements](#using-it-user-configuration-and-requirements)
@@ -43,6 +42,7 @@ use common sense (for starters, do a backup).
     - [Running automatically](#running-automatically)
     - [What this won't do](#what-this-wont-do)
     - [If you still use Zotero 4](#if-you-still-use-zotero-4)
+    - [New (July 2022): Exporting only libraryID == 1](#new-july-2022-exporting-only-libraryid--1)
   - [Alternatives](#alternatives)
     - [Zotero for Android apps in 2015: Zandy, Zed, Zojo, Zotfile, Zotable](#zotero-for-android-apps-in-2015-zandy-zed-zojo-zotfile-zotable)
     - [Using BibTeX in the Android tablet](#using-bibtex-in-the-android-tablet)
@@ -56,11 +56,6 @@ use common sense (for starters, do a backup).
   - [License](#license)
 
 <!-- markdown-toc end -->
-
-
-## New (July 2022): Exporting only libraryID == 1 ##
-
-I've modified the script so that only libraryID = 1 is exported. I think libraryID = 1 is the "primary library". I've started using group libraries, and if I export all, it upsets sorting by date added (as the ones in the new library are much more recent, even if the original paper was in my library long ago). If you want to export all libraries, see instructions on file **zotero-5-to-referey.R**.
 
 
 ## Why ##
@@ -292,6 +287,10 @@ something that you realized while reading the PDF.
 
 If you use Zotero 4, use **zotero-4-to-referey.R** in file
 **run-zotero-to-referey.sh**. **zotero-5-to-referey.R** works with Zotero 5, 6, and 7.
+
+### New (July 2022): Exporting only libraryID == 1 ###
+
+I've modified the script so that only libraryID = 1 is exported. I think libraryID = 1 is the "primary library". I've started using group libraries, and if I export all, it upsets sorting by date added (as the ones in the new library are much more recent, even if the original paper was in my library long ago). If you want to export all libraries, see instructions on file **zotero-5-to-referey.R**.
 
 
 ##  Alternatives ##
