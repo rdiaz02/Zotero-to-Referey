@@ -6,8 +6,9 @@ a way that Referey will be able to use._
 
 `zotero-to-referey.R` will take a [Zotero](http://www.zotero.org)
 sqlite database (db) and convert it into a database that
-[Referey](https://play.google.com/store/apps/details?id=com.kmk.Referey),
-an Android application, can handle.
+[Referey](https://github.com/kleinkm/Referey), 
+<!--(https://play.google.com/store/apps/details?id=com.kmk.Referey)-->
+an Android application (no longer in the Play store), can handle.
 
 **WARNING number one:** Don't use this; just use the [Zotero Android app](https://www.zotero.org/support/mobile). See details in [Update: you probably don't want to use this. Stick to the official Zotero for Android](#update-you-probably-dont-want-to-use-this-stick-to-the-official-zotero-for-android).
 
